@@ -17,7 +17,7 @@ setwd('Datasets')
 ##-----------------------------------------------------------------------------------------------------------
 
 Cancers <- c("LAML", "BLCA")
-Cancers1 <- c("COAD", "ESCA")
+Cancers1 <- c("ESCA")
 Cancers2 <- c("KICH", "KIRC")
 Cancers3 <- c("KIRP", "LUAD")
 Cancers4 <- c("LUSC", "PAAD")
@@ -72,7 +72,8 @@ for (i in 1:length(Cancers1)){
   clin <- download_clinical(Cancers1[i])
   mut <- download_mutational(Cancers1[i])
   mut <- classify_Changes(mut)
-  total <- merge_ind(clin,mut)  write.csv(total, paste0(Cancers1[i], ".csv"))
+  total <- merge_ind(clin,mut)  
+  write.csv(total, paste0(Cancers1[i], ".csv"))
   assign(paste(Cancers1[i]), total)
 }
 for (i in 1:length(Cancers2)){

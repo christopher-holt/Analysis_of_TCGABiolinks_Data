@@ -24,7 +24,6 @@ download_clinical <- function(Data){
 ## as well as formatting two columns to remove characters
 ##-----------------------------------------------------------------------------------------------------------
 
-
 download_mutational<- function(Data){
   pipelines <- c("somaticsniper", "muse", "mutect", "varscan2")
   combined <- data.frame()
