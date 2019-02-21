@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550763464321.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E613B97E",
+    "lastKnownWriteTime" : 1550604246,
+    "last_content_update" : 1550604246,
+    "path" : "~/Desktop/Biolinks/Analysis.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "15,156",
+        "scrollLine" : "2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,331 @@
+library(tidyverse)
+
+HNSC <- read.csv("~/Desktop/Biolinks/HNSC_biolinks.csv")
+cancers <- as.character(unique(HNSC$disease))
+
+pipelines = as.character(unique(HNSC$pipeline))
+i = 1
+j = 1
+for(i in 1:length(cancers)){
+  for (j in 1:length(pipelines)){
+  Dataset_1 <- HNSC %>% filter(disease == cancers[i], mutation_status == "Somatic",
+                               variant_classification %in% c("Missense_Mutation", 
+                                                             "Nonsense_Mutations", "Silent",
+                                                             "Frame_Shift_Del",
+                                                             "Frame_Shift_Ins", "In_Frame_Del", 
+                                                             "In_Frame_Ins", "Indel"), tissue_or_organ_of_origin == "Larynx, NOS", pipeline == pipelines[j])
+  
+  
+  ####### Dataset 1 analysis
+  ## Distribution of point mutations
+  
+  EurAmr <- Dataset_1 %>% filter(race == "white") %>% mutate_if(is.factor,as.character)
+  AfrAmr <- Dataset_1 %>% filter(race == "black or african american") %>% mutate_if(is.factor,as.character)
+  
+
+  
+  # EurAmr_table <- EurAmr %>% select(tumor_barcode, variant_classification) %>% group_by(tumor_barcode) %>% count(variant_classification)
+  # AfrAmr_table <- AfrAmr %>% select(tumor_barcode, variant_classification) %>% group_by(tumor_barcode) %>% count(variant_classification)
+  # 
+  # names(EurAmr_table) <- c("Var1", "Var2", "Freq")
+  # names(AfrAmr_table) <- c("Var1", "Var2", "Freq")
+  # 
+  # 
+
+   EurAmr_table <- as.data.frame(table(EurAmr$tumor_barcode, EurAmr$variant_classification))
+   AfrAmr_table <- as.data.frame(table(AfrAmr$tumor_barcode, AfrAmr$variant_classification))
+  
+   EurAmr_table$Var1 <- type.convert(EurAmr_table$Var1, as.is = T)
+   EurAmr_table$Var2 <- type.convert(EurAmr_table$Var2, as.is = T)
+   AfrAmr_table$Var1 <- type.convert(AfrAmr_table$Var1, as.is = T)
+   AfrAmr_table$Var2 <- type.convert(AfrAmr_table$Var2, as.is = T)
+  
+  
+   EurAmr_Sum <- EurAmr_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+   AfrAmr_Sum <- AfrAmr_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  
+   EurAmr_Sum$race <- paste0(length(unique(EurAmr_table$Var1)), "-white")
+   AfrAmr_Sum$race <- paste0(length(unique(AfrAmr_table$Var1)), "-african_american")
+  
+   Sum <- rbind(EurAmr_Sum, AfrAmr_Sum)
+  
+  
+   graph <- (ggplot(data = Sum) + geom_boxplot(aes(x = race, y = total)) + ylab("Total no. mutations")
+             + ggtitle("Distribution of number of somatic point mutations in ",cancers[i])
+             + theme(plot.title = element_text(hjust = 0.5))  + ylim(0,1100)
+  
+   )
+   ggsave(graph, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+                                  paste0(pipelines[j], "/",paste0(cancers[i], "_somatic_point_mut", ".jpg")) )
+                                  , width = 6, height = 6, units = "in")
+  
+   graph_1 <- ggplotly(graph)
+   htmlwidgets::saveWidget(graph_1, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+                                                     paste0(pipelines[j], "/",paste0(cancers[i], "_somatic_point_mut", ".html")) )
+                           , selfcontained = F)
+  # ## Ti vs Tv burden
+  # 
+  Ti_Tv_EA <- EurAmr %>% filter(Mut_Type %in% c("Ti", "Tv")) %>% mutate_if(is.factor,as.character)
+  Ti_Tv_AA <- AfrAmr %>% filter(Mut_Type %in% c("Ti", "Tv")) %>% mutate_if(is.factor,as.character)
+
+  EA_table <- as.data.frame(table(Ti_Tv_EA$tumor_barcode,Ti_Tv_EA$Mut_Type)) %>% mutate_if(is.factor,as.character)
+  AA_table <- as.data.frame(table(Ti_Tv_AA$tumor_barcode,Ti_Tv_AA$Mut_Type)) %>% mutate_if(is.factor,as.character)
+
+  EA_Sum <- EA_table %>% group_by(Var1) %>% mutate(pc = (Freq/sum(Freq)) * 100)
+  AA_Sum <- AA_table %>% group_by(Var1) %>% mutate(pc = (Freq/sum(Freq))*100)
+
+  EA_Sum$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  AA_Sum$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+
+  combined_Ti_Tv <- rbind(EA_Sum, AA_Sum)
+
+
+  Ti_Tv <- (ggplot(data = combined_Ti_Tv, aes(x  = race, y = pc, fill = Var2))
+            + geom_boxplot(position = "dodge") + ylab("Ti vs Tv Percentage") +
+              ggtitle("Ti vs Tv comparison in ", cancers[i]) +  theme(plot.title = element_text(hjust = 0.5))
+            + ylim(0,90)
+  )
+  ggsave(Ti_Tv, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+                                 paste0(pipelines[j], "/",paste0(cancers[i], "_ti_tv", ".jpg")) ), width = 6, height = 6, units = "in")
+
+  # Ti_Tv_int <- ggplotly(Ti_Tv)
+  # htmlwidgets::saveWidget(Ti_Tv_int, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+  #                                                     paste0(pipelines[j], "/",paste0(cancers[i], "ti_tv", ".html")) )
+  #                         , selfcontained = F)
+  # 
+  # 
+  ## This code will look at specific nucleotide changes 
+  EA_nuc <- EurAmr %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
+  AA_nuc <- AfrAmr %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
+  
+  
+  EA_nuc_table <- as.data.frame(table(EA_nuc$tumor_barcode,EA_nuc$nucChange)) %>% mutate_if(is.factor,as.character)
+  AA_nuc_table <- as.data.frame(table(AA_nuc$tumor_barcode,AA_nuc$nucChange)) %>% mutate_if(is.factor,as.character)
+  
+
+  # 
+  # EA_nuc_Sum <- EA_nuc_table %>% group_by(Var2) %>% summarise(pc = sum(Freq))
+  # AA_nuc_Sum <- AA_nuc_table %>% group_by(Var2) %>% summarise(pc = sum(Freq))
+  # 
+  # EA_nuc_Sum$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  # AA_nuc_Sum$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+  # 
+  # combined_nuc <- rbind(EA_nuc_Sum, AA_nuc_Sum)
+  # 
+  # combined_nuc <- combined_nuc %>% group_by(race) %>% mutate(percent = pc/sum(pc)*100)
+  # 
+  # comb_nuc <- (ggplot(combined_nuc) + geom_bar(aes(x = race, y = percent, fill = Var2), position = "dodge",stat = "identity") 
+  #              + ggtitle("Distribution of Frequencies of Mutation Types in ", cancers[i]) 
+  #              + theme(plot.title = element_text(hjust = 0.5)))
+  # 
+  # ggsave(comb_nuc, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+  #                                   paste0(pipelines[j], "/",paste0(cancers[i], "nuc_change_bar", ".jpg")) ),
+  #        width = 6, height = 6, units = "in")
+  # 
+  # 
+  # comb_nuc_int <- ggplotly(comb_nuc)
+  # htmlwidgets::saveWidget(comb_nuc_int, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+  #                                                        paste0(pipelines[j], "/",paste0(cancers[i], "nuc_change_bar", ".html")) )
+  #                         , selfcontained = F)
+  # 
+  EA_nuc_table$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  AA_nuc_table$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+  
+  combined_table <- rbind(EA_nuc_table, AA_nuc_table)
+  
+  combined_table_1 <- combined_table %>% group_by(race, Var1, Var2) %>% summarise(total = sum(Freq))
+  combined_table_1 <- combined_table_1 %>% group_by(Var1) %>% mutate(perc = (total/sum(total))*100)
+  
+  b <- (ggplot(combined_table_1) + geom_bar(aes(x = race, y = perc, fill = Var2), position = "dodge",stat = "identity") 
+               + ggtitle("Distribution of Frequencies of Mutation Types in ", cancers[i]) 
+               + theme(plot.title = element_text(hjust = 0.5)))
+  
+  
+  nuc_distro <- (ggplot(combined_table_1) + geom_boxplot(aes(x = Var2, y = perc, fill = race))+ coord_flip()
+                 + scale_color_manual(values = c('#ff0000', '#0000ff'))
+                 + ggtitle("Distribution of Frequencies of Mutation Types in ", cancers[i]) 
+                 + theme(plot.title = element_text(hjust = 0.5))
+                 + xlab("Mutation Type")
+                 + ylab("percent")
+                 + ylim(0,50))
+    
+  ggsave(nuc_distro, file = file.path("/home/chris-holt/Desktop/Biolinks/HNSC-Data/",
+                                      paste0(pipelines[j], "/",paste0(cancers[i], "nuc_change_box", ".jpg")) ),
+         width = 6, height = 6, units = "in")
+  
+  ## This will look at age 
+  # 
+  # EA_age_table <- as.data.frame(table(EurAmr$years_to_birth, EurAmr$variant_classification))
+  # AA_age_table <- as.data.frame(table(AfrAmr$years_to_birth, AfrAmr$variant_classification))
+  # 
+  # EA_age_table$Var1 <- type.convert(EA_age_table$Var1, as.is = T)
+  # EA_age_table$Var2 <- type.convert(EA_age_table$Var2, as.is = T)
+  # 
+  # AA_age_table$Var1 <- type.convert(AA_age_table$Var1, as.is = T)
+  # AA_age_table$Var2 <- type.convert(AA_age_table$Var2, as.is = T)
+  # 
+  # EA_age_Sum <- EA_age_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  # AA_age_Sum <- AA_age_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  # 
+  # EA_age_Sum$race <- paste0(length(unique(EurAmr$tumor_barcode)), "-white")
+  # AA_age_Sum$race <- paste0(length(unique(AfrAmr$tumor_barcode)), "-african_american")
+  # 
+  # combined_age <- rbind(EA_age_Sum, AA_age_Sum )
+  # 
+  # age <- (ggplot(combined_age, aes(x = Var1, y = total, colour = race))
+  #         + geom_count() + xlab("Age (years)") + ylab("No. of Mutations")
+  #         + ggtitle("Number of mutations and age relationship in", cancers[i]) 
+  #         + theme(plot.title = element_text(hjust = 0.5))
+  #         + scale_color_manual(values = c('#ff0000', '#0000ff'))
+  #         + ylim(0,5000)
+  # )
+  # 
+  # ggsave(age, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset1\\Image\\Age",paste0(cancers[i], "_nuc_change_box", ".jpg")),
+  #        width = 6, height = 6, units = "in")
+}
+}
+
+
+
+
+## Dataset 2
+cancers <- cancers[cancers != "ACC"] # No data for AfrAmr
+cancers <- cancers[cancers != "CHOL"]
+cancers <- cancers[cancers != "DLBC"]
+cancers <- cancers[cancers != "GBM"]
+cancers <- cancers[cancers != "LAML"]
+cancers <- cancers[cancers != "PAAD"]
+cancers <- cancers[cancers != "PCPG"]
+cancers <- cancers[cancers != "PRAD"]
+cancers <- cancers[cancers != "SKCM"]
+cancers <- cancers[cancers != "STAD"]
+cancers <- cancers[cancers != "UCS"]
+for(i in 1:length(cancers)){
+  Dataset_2 <- main %>% filter(Cancer_Cohort == cancers[i], mutation_status == "Somatic",
+                               (grepl("^stage.*iii.*$", pathologic_stage) | grepl("^stage.*iv.*$", pathologic_stage)),
+                               years_to_birth < 70, variant_classification %in% c("Missense_Mutation", 
+                                                                                  "Nonsense_Mutations", "Silent",
+                                                                                  "Frame_Shift_Del",
+                                                                                  "Frame_Shift_Ins", "In_Frame_Del", 
+                                                                                  "In_Frame_Ins", "Indel"))
+  
+  ####### Dataset 2 analysis
+  ## Distribution of point mutations
+  
+  EurAmr <- subset(Dataset_2, race == "white")
+  AfrAmr <- subset(Dataset_2, race == "black or african american")
+  
+  EurAmr_table <- as.data.frame(table(EurAmr$tumor_barcode,EurAmr$variant_classification))
+  AfrAmr_table <- as.data.frame(table(AfrAmr$tumor_barcode,AfrAmr$variant_classification))
+  
+  EurAmr_table$Var1 <- type.convert(EurAmr_table$Var1, as.is = T)
+  EurAmr_table$Var2 <- type.convert(EurAmr_table$Var2, as.is = T)
+  AfrAmr_table$Var1 <- type.convert(AfrAmr_table$Var1, as.is = T)
+  AfrAmr_table$Var2 <- type.convert(AfrAmr_table$Var2, as.is = T)
+  
+  
+  EurAmr_Sum <- EurAmr_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  AfrAmr_Sum <- AfrAmr_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  
+  EurAmr_Sum$race <- paste0(length(unique(EurAmr_Sum$Var1)), "-white")
+  AfrAmr_Sum$race <- paste0(length(unique(AfrAmr_Sum$Var1)), "-african_american")  
+  
+  Sum <- rbind(EurAmr_Sum, AfrAmr_Sum)
+  
+  graph <- (ggplot(data = Sum) + geom_boxplot(aes(x = race, y = total)) + ylab("Total no. mutations")
+            + ggtitle("Distribution of number of somatic point mutations in ",cancers[i])
+            + theme(plot.title = element_text(hjust = 0.5))) + ylim(0,1500)
+  ggsave(graph, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Image\\PointMutations",
+                                 paste0(cancers[i], "_somatic_point_mut", ".jpg")), width = 6, height = 6, units = "in")
+  
+  graph_1 <- ggplotly(graph)
+  htmlwidgets::saveWidget(graph_1, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Interactive\\PointMutations",paste0(cancers[i], "_somatic_point_mut", ".html"))
+                          , selfcontained = F)
+  ## Ti vs Tv burden
+  
+  Ti_Tv_EA <- subset(EurAmr, Mut_Type == "Ti" | Mut_Type == "Tv")
+  Ti_Tv_AA <- subset(AfrAmr, Mut_Type == "Ti" | Mut_Type == "Tv")
+  EA_table <- as.data.frame(table(Ti_Tv_EA$tumor_barcode,Ti_Tv_EA$Mut_Type))
+  AA_table <- as.data.frame(table(Ti_Tv_AA$tumor_barcode,Ti_Tv_AA$Mut_Type))
+  
+  EA_table$Var1 <- type.convert(EA_table$Var1, as.is = T)
+  EA_table$Var2 <- type.convert(EA_table$Var2, as.is = T)
+  
+  AA_table$Var1 <- type.convert(AA_table$Var1, as.is = T)
+  AA_table$Var2 <- type.convert(AA_table$Var2, as.is = T)
+  
+  EA_Sum <- EA_table %>% group_by(Var1) %>% mutate(pc = Freq/sum(Freq))
+  AA_Sum <- AA_table %>% group_by(Var1) %>% mutate(pc = Freq/sum(Freq))
+  
+  EA_Sum$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  AA_Sum$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+  
+  combined_Ti_Tv <- rbind(EA_Sum, AA_Sum)
+  
+  Ti_Tv <- (ggplot(data = combined_Ti_Tv, aes(x  = race, y = pc, fill = Var2)) 
+            + geom_boxplot(position = "dodge") + ylab("Ti vs Tv Percentage") + 
+              ggtitle("Ti vs Tv comparison in ", cancers[i]) +  theme(plot.title = element_text(hjust = 0.5))
+            + ylim(0,0.9)
+  )
+  ggsave(Ti_Tv, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Image\\TivsTv",
+                                 paste0(cancers[i], "_Ti_Tv", ".jpg")), width = 6, height = 6, units = "in")
+  
+  Ti_Tv_int <- ggplotly(Ti_Tv)
+  htmlwidgets::saveWidget(Ti_Tv_int, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Interactive\\TivsTv", paste0(cancers[i], "Ti_Tv", ".html"))
+                          , selfcontained = F)
+  
+  
+  ## This code will look at specific nucleotide changes 
+  EA_nuc <- subset(EurAmr, nucChange != "deletion" | nucChange != "insertion" | nucChange != "other")
+  AA_nuc <- subset(AfrAmr, nucChange != "deletion" | nucChange != "insertion" | nucChange != "other")
+  
+  EA_nuc <- subset(EA_nuc, nucChange != "other")
+  AA_nuc <- subset(AA_nuc, nucChange != "other")
+  
+  
+  EA_nuc_table <- as.data.frame(table(EA_nuc$tumor_barcode,EA_nuc$nucChange))
+  AA_nuc_table <- as.data.frame(table(AA_nuc$tumor_barcode,AA_nuc$nucChange))
+  
+  EA_nuc_table$Var1 <- type.convert(EA_nuc_table$Var1, as.is = T)
+  EA_nuc_table$Var2 <- type.convert(EA_nuc_table$Var2, as.is = T)
+  
+  AA_nuc_table$Var1 <- type.convert(AA_nuc_table$Var1, as.is = T)
+  AA_nuc_table$Var2 <- type.convert(AA_nuc_table$Var2, as.is = T)
+  
+  
+  EA_nuc_Sum <- EA_nuc_table %>% group_by(Var2) %>% summarise(pc = sum(Freq))
+  AA_nuc_Sum <- AA_nuc_table %>% group_by(Var2) %>% summarise(pc = sum(Freq))
+  
+  EA_nuc_Sum$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  AA_nuc_Sum$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+  
+  combined_nuc <- rbind(EA_nuc_Sum, AA_nuc_Sum)
+  
+  combined_nuc <- combined_nuc %>% group_by(race) %>% mutate(percent = pc/sum(pc)*100)
+  
+  comb_nuc <- (ggplot(combined_nuc) + geom_bar(aes(x = race, y = percent, fill = Var2), position = "dodge",stat = "identity") )
+  ggsave(comb_nuc, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Image\\nucChange",paste0(cancers[i], "_nuc_change_bar", ".jpg")),
+         width = 6, height = 6, units = "in")
+  
+  
+  comb_nuc_int <- ggplotly(comb_nuc)
+  htmlwidgets::saveWidget(comb_nuc_int, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Interactive\\nucChange",paste0(cancers[i], "nuc_change", ".html"))
+                          , selfcontained = F)
+  
+  EA_nuc_table$race <- paste0(length(unique(EA_table$Var1)), "-white")
+  AA_nuc_table$race <- paste0(length(unique(AA_table$Var1)), "-african_american")
+  
+  combined_table <- rbind(EA_nuc_table, AA_nuc_table)
+  
+  combined_table_1 <- combined_table %>% group_by(race, Var1, Var2) %>% summarise(pc = sum(Freq))
+  combined_table_1 <- combined_table_1 %>% group_by(Var1) %>% mutate(perc = (pc/sum(pc))*100)
+  
+  
+  nuc_distro <- (ggplot(combined_table_1) + geom_boxplot(aes(x = Var2, y = perc, fill = race))+ coord_flip()
+                 + scale_color_manual(values = c('#ff0000', '#0000ff')))
+  ggsave(nuc_distro, file = file.path("C:\\Users\\tug08056\\Desktop\\Dataset2\\Image\\nucChange",paste0(cancers[i], "_nuc_change_box", ".jpg")),
+         width = 6, height = 6, units = "in")
+  
+  ## This will look at age 
+  
+}

@@ -113,6 +113,28 @@ merge_ind <- function(clin, mut){
 }
 
 ##-----------------------------------------------------------------------------------------------------------
+## Does each cancer site have enough data. This will only consider somatic point mutations
+##-----------------------------------------------------------------------------------------------------------
+
+sites <- function(Data, category){
+  pot_sites <- as.character(unique(Data$tissue_or_organ_of_origin))
+  cat <- as.character(unique(Data$category))
+}
+
+pot_sites <- (unique(HNSC$tissue_or_organ_of_origin))
+for(i in 1:length(pot_sites)){
+  set1 <- Data %>% filter(mutation_status == "Somatic",
+                          variant_classification %in% c("Missense_Mutation", 
+                                                        "Nonsense_Mutations", "Silent",
+                                                        "Frame_Shift_Del",
+                                                        "Frame_Shift_Ins", "In_Frame_Del", 
+                                                        "In_Frame_Ins", "Indel"), 
+                          tissue_or_organ_of_origin == pot_sites[i])
+  
+  
+}
+
+##-----------------------------------------------------------------------------------------------------------
 ## End of Script
 ##-----------------------------------------------------------------------------------------------------------
 
