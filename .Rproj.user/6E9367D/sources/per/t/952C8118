@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1550722849085.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2889299714",
+    "id" : "952C8118",
+    "lastKnownWriteTime" : 1550723111,
+    "last_content_update" : 1550723111766,
+    "path" : "~/Research/BiolinksAnalysis/Scripts/Download.R",
+    "project_path" : "Scripts/Download.R",
+    "properties" : {
+        "cursorPosition" : "11,15",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
