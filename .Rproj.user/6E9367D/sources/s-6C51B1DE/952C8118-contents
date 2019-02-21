@@ -59,3 +59,40 @@ for (i in 1:length(Cancers5)){
   assign(paste(Cancers5[i]), total)
 }
 rm(total)
+## -------------------------------------------------------------------------------------------
+for (i in 1:length(Cancers)){
+  clin <- download_clinical(Cancers[i])
+  mut <- download_mutational(Cancers[i])
+  mut <- classify_Changes(mut)
+  total <- merge_ind(clin,mut)
+  write.csv(total, paste0(Cancers[i], ".csv"))
+  assign(paste(Cancers[i]), total)
+}
+for (i in 1:length(Cancers1)){
+  clin <- download_clinical(Cancers1[i])
+  mut <- download_mutational(Cancers1[i])
+  mut <- classify_Changes(mut)
+  total <- merge_ind(clin,mut)  write.csv(total, paste0(Cancers1[i], ".csv"))
+  assign(paste(Cancers1[i]), total)
+}
+for (i in 1:length(Cancers2)){
+  total <- merged(Cancers2[i])
+  write.csv(total, paste0(Cancers2[i], ".csv"))
+  assign(paste(Cancers2[i]), total)
+}
+
+for (i in 1:length(Cancers3)){
+  total <- merged(Cancers3[i])
+  write.csv(total, paste0(Cancers3[i], ".csv"))
+  assign(paste(Cancers3[i]), total)
+}
+for (i in 1:length(Cancers4)){
+  total <- merged(Cancers4[i])
+  write.csv(total, paste0(Cancers4[i], ".csv"))
+  assign(paste(Cancers4[i]), total)
+}
+for (i in 1:length(Cancers5)){
+  total <- merged(Cancers5[i])
+  write.csv(total, paste0(Cancers5[i], ".csv"))
+  assign(paste(Cancers5[i]), total)
+}

@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "952C8118",
-    "lastKnownWriteTime" : 1550727878,
-    "last_content_update" : 1550727878665,
+    "lastKnownWriteTime" : 1550728649,
+    "last_content_update" : 1550728649465,
     "path" : "~/Research/BiolinksAnalysis/Scripts/Download.R",
     "project_path" : "Scripts/Download.R",
     "properties" : {
-        "cursorPosition" : "36,2",
-        "scrollLine" : "18"
+        "cursorPosition" : "7,0",
+        "scrollLine" : "0"
     },
     "relative_order" : 1,
     "source_on_save" : false,

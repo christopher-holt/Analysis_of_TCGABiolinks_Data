@@ -25,22 +25,31 @@ download_clinical <- function(Data){
 ##-----------------------------------------------------------------------------------------------------------
 
 
-download_mutational<- function(Data, pipeline){
-  Data <- GDCquery_Maf(paste0(Data), pipelines = paste0(pipeline))
-  Data$tumor_barcode <- str_replace_all(Data$Tumor_Sample_Barcode, pattern = '-',replacement = '.')
-  Data$tumor_barcode <- str_sub(Data$tumor_barcode, start = 1, end = 12)
-  Data$tumor_barcode <- sapply(Data$tumor_barcode, tolower)
-  Data$pipeline = paste0(pipeline)
-  colnames(Data) <- tolower(colnames(Data))
+download_mutational<- function(Data){
+  pipelines <- c("somaticsniper", "muse", "mutect", "varscan2")
+  combined <- data.frame()
   
-  
-  hgvsc1 <- str_replace_all(Data$hgvsc, pattern = "^c.", replacement = "")
-  c <- as.data.frame(hgvsc1)
-  c <- type.convert(c, as.is = T)
-  Data_1 <- cbind(Data, c) 
-  
-  return(Data_1)
+  for (i in 1:length(pipelines)){
+    Data <- GDCquery_Maf(paste0(Data), pipelines = pipelines[i])
+    Data$tumor_barcode <- str_replace_all(Data$Tumor_Sample_Barcode, pattern = '-',replacement = '.')
+    Data$tumor_barcode <- str_sub(Data$tumor_barcode, start = 1, end = 12)
+    Data$tumor_barcode <- sapply(Data$tumor_barcode, tolower)
+    Data$pipeline = paste0(pipelines[i])
+    colnames(Data) <- tolower(colnames(Data))
+
+
+    hgvsc1 <- str_replace_all(Data$hgvsc, pattern = "^c.", replacement = "")
+    c <- as.data.frame(hgvsc1)
+    c <- type.convert(c, as.is = T)
+    Data_1 <- cbind(Data, c) 
+    
+    combined <- rbind(combined, Data_1)
+    
+  }
+  return(combined)
 }
+
+
 
 ##-----------------------------------------------------------------------------------------------------------
 ## This will take two columns containing nucleotide changes and create their own column
@@ -97,6 +106,11 @@ merged <- function(Cancers){
     total <- merge(clinical, combined, by = "tumor_barcode")
   return(total)
   }
+}
+
+merge_ind <- function(clin, mut){
+  total <- merge(clin, mut, by = "tumor_barcode")
+  return(total)
 }
 
 ##-----------------------------------------------------------------------------------------------------------
