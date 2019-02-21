@@ -24,12 +24,12 @@ download_clinical <- function(Data){
 ## as well as formatting two columns to remove characters
 ##-----------------------------------------------------------------------------------------------------------
 
-download_mutational<- function(Data){
+download_mutational<- function(file){
   pipelines <- c("somaticsniper", "muse", "mutect", "varscan2")
   combined <- data.frame()
   
   for (i in 1:length(pipelines)){
-    Data <- GDCquery_Maf(paste0(Data), pipelines = pipelines[i])
+    Data <- GDCquery_Maf(paste0(file), pipelines = pipelines[i])
     Data$tumor_barcode <- str_replace_all(Data$Tumor_Sample_Barcode, pattern = '-',replacement = '.')
     Data$tumor_barcode <- str_sub(Data$tumor_barcode, start = 1, end = 12)
     Data$tumor_barcode <- sapply(Data$tumor_barcode, tolower)
