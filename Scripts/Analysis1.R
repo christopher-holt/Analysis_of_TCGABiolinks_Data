@@ -7,10 +7,10 @@ setwd("~/Research/BiolinksAnalysis/Datasets")
 ##-----------------------------------------------------------------------------------------------------------
 ## Read in the data
 ##-----------------------------------------------------------------------------------------------------------
-Data <- c("LAML", "BLCA", "ESCA", "KICH", "KIRC", "LUSC", "PAAD", "STAD", "LIHC" )
+Data <- c("LAML", "BLCA", "ESCA", "KICH", "KIRC", "LUSC", "PAAD", "STAD", "LIHC", "KIRP", "LUAD")
 
 for (i in 1:length(Data)){
-  df <- read_table2(paste0(Data[i], ".csv"))
+  df <- read_delim(paste0(Data[i], ".csv"), delim = "\t")
   assign(paste(Data[i]), df)
 }
 
