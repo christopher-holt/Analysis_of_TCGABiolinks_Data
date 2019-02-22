@@ -3,15 +3,14 @@
 ##-----------------------------------------------------------------------------------------------------------
 
 library(tidyverse)
-setwd(paste0(getwd(),"/../"))
+setwd("~/Research/BiolinksAnalysis/Datasets")
 ##-----------------------------------------------------------------------------------------------------------
 ## Read in the data
 ##-----------------------------------------------------------------------------------------------------------
 Data <- c("LAML", "BLCA", "ESCA", "KICH", "KIRC", "LUSC", "PAAD", "STAD", "LIHC" )
 
 for (i in 1:length(Data)){
-  df <- read.csv(file = file.path("Datasets/"),paste0(Data[i], ".csv")), 
-                 header = T, stringsAsFactors = F)
+  df <- read_table2(paste0(Data[i], ".csv"))
   assign(paste(Data[i]), df)
 }
 

@@ -38,7 +38,7 @@ for(i in 1:length(cancers)){
                                                                  "Nonsense_Mutations", "Silent",
                                                                  "Frame_Shift_Del",
                                                                  "Frame_Shift_Ins", "In_Frame_Del", 
-                                                                 "In_Frame_Ins", "Indel"), tissue_or_organ_of_origin == site[n], pipeline == pipelines[j])
+                                                                 "In_Frame_Ins", "Indel"), tissue_or_organ_of_origin == "Oropharynx, NOS", pipeline == pipelines[j])
       
       
       ####### Dataset 1 analysis

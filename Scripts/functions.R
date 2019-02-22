@@ -146,56 +146,6 @@ sites <- function(Data, category){
 ## Testing sites function
 ##-----------------------------------------------------------------------------------------------------------
 
-
-pot_sites <- (unique(HNSC$tissue_or_organ_of_origin))
-new_site <- character()
-for(i in 1:length(pot_sites)){
-  set1 <- HNSC %>% filter(mutation_status == "Somatic",
-                          variant_classification %in% c("Missense_Mutation", 
-                                                        "Nonsense_Mutations", "Silent",
-                                                        "Frame_Shift_Del",
-                                                        "Frame_Shift_Ins", "In_Frame_Del", 
-                                                        "In_Frame_Ins", "Indel"), 
-                          tissue_or_organ_of_origin == "Oropharynx, NOS")
-  
-  set1_a <- set1 %>% filter(race == "white")
-  set1_b <- set1 %>% filter(race == "black or african american")
-  
-  if((nrow(set1_b) > 0 & nrow(set1_a) > 0) & ((length(unique(set1_b$tumor_barcode)) >= 3 & length(unique(set1_a$tumor_barcode)) >= 3))){
-    new_site <- c(new_site, pot_sites[i])
-  } 
-  # else if((length(unique(set1_b$tumor_barcode)) > 3 & length(unique(set1_a$tumor_barcode)) > 3)){
-  #   new_site <- c(new_site, pot_sites[i])
-  #   
-  # }
-}
-
-
-##-----------------------------------------------------------------------------------------------------------
-
-
-pot_sites <- (unique(HNSC$tissue_or_organ_of_origin))
-new_site <-
-  for(i in 1:length(pot_sites)){
-    set1 <- HNSC %>% filter(mutation_status == "Somatic",
-                            variant_classification %in% c("Missense_Mutation", 
-                                                          "Nonsense_Mutations", "Silent",
-                                                          "Frame_Shift_Del",
-                                                          "Frame_Shift_Ins", "In_Frame_Del", 
-                                                          "In_Frame_Ins", "Indel"), 
-                            tissue_or_organ_of_origin == pot_sites[i])
-    
-    set1_a <- set1 %>% filter(race == "white")
-    set1_b <- set1 %>% filter(race == "black or african american")
-    
-    if((nrow(set1_b) == 0 | nrow(set1_a) == 0)){
-      pot_sites <- pot_sites[pot_sites != pot_sites[i]]
-    } else if(length(unique(set1_b$tumor_barcode)) < 5 | length(unique(set1_a$tumor_barcode)) < 5){
-      pot_sites <- pot_sites[pot_sites != pot_sites[i]]
-    }
-    i = i+1
-  }
-
 ##-----------------------------------------------------------------------------------------------------------
 ## End of Script
 ##-----------------------------------------------------------------------------------------------------------

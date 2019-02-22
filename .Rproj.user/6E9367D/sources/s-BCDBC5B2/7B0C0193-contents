@@ -1,0 +1,434 @@
+library(readr)
+library(magrittr)
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(data.table)
+library(plotly)
+RTCGA_Select_Col <- read_csv("/home/chris-holt/Desktop/TCGA_Gene_Files/RTCGA_Select_Col.csv")
+RTCGA_Select_Col <-RTCGA_Select_Col[!(RTCGA_Select_Col$hugo_symbol=="."),]
+RTCGA_Select_Col <-RTCGA_Select_Col[!(RTCGA_Select_Col$hugo_symbol=="Unknown"),]
+RTCGA_Select_Col[is.na(RTCGA_Select_Col)] <- 'none' ##accounts up 37.8% of the people
+RTCGA_Select_Col <-RTCGA_Select_Col[!(RTCGA_Select_Col$ethnicity=="none"),]
+RTCGA_Select_Col <-RTCGA_Select_Col[!(is.na(RTCGA_Select_Col$ethnicity)),]
+
+
+Names <- as.character(c('ACC','BLCA', 'BRCA',  'CHOL', 'DLBC', "ESCA", 'GBM', 'HNSC', 'KICH', 'KIRC', 'KIRP',
+                        'LAML', 'LGG', 'LIHC', 'LUAD', 'LUSC', 'PAAD', 'PCPG', 'SARC', 'SKCM', 'STAD',
+                        'THCA', 'THYM', 'UVM'))
+Names_Full <- as.character(c('Adrenocortical carcinoma','Bladder urothelial carcinoma', 'Breast invasive carcinoma',
+                             'Cholangiocarcinoma',
+                             'Lymphoid Neoplasm Diffuse Large B-cell Lymphoma','Esophageal carcinoma', 'Glioblastoma multiforme', 
+                             'Head and Neck squamous cell carcinoma', 'Kidney Chromophobe', 'Kidney renal clear cell carcinoma',
+                             'Kidney renal papillary cell carcinoma', 'Acute Myeloid Leukemia', 'Brain Lower Grade Glioma', 
+                             'Liver hepatocellular carcinoma', 'Lung adenocarcinoma', 'Lung squamous cell carcinoma', 
+                             'Pancreatic adenocarcinoma', 'Pheochromocytoma and Paraganglioma',
+                             'Sarcoma', 'Skin Cutaneous Melanoma',
+                             'Stomach adenocarcinoma', 'Thyroid carcinoma', 'Thymoma',
+                             'Uveal Melanoma'
+))
+
+eth <- as.data.frame(table(RTCGA_Select_Col$Cancer_Cohort, RTCGA_Select_Col$ethnicity))
+eth <- eth[order(eth$Var1),]
+
+## This creates data frame for all the cancers and the correct graphs for all cancers
+## This does not remove far outliers and does not create graph of most mutated genes for each category
+i = 1
+for (i in 1:length(Names)){
+  Name<-((RTCGA_Select_Col %>% filter(Cancer_Cohort == Names[i] & variant_classification == 'Missense_Mutation' & mutation_status == 'Somatic')
+          %>% dplyr::select(hugo_symbol, ethnicity, tumor_barcode)))
+  
+  Name_NHOL <- subset(Name, ethnicity == 'not hispanic or latino')
+  Name_HOL <- subset(Name, ethnicity == 'hispanic or latino')
+  
+  Name_NHOL_table <- as.data.frame((table(Name_NHOL$hugo_symbol, Name_NHOL$tumor_barcode)))
+  Name_HOL_table <- as.data.frame((table(Name_HOL$hugo_symbol, Name_HOL$tumor_barcode)))
+  
+  write.csv(Name_NHOL_table,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_NHOL_table", ".csv")),quote=FALSE,row.names=FALSE)
+  write.csv(Name_HOL_table,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_HOL_table", ".csv")),quote=FALSE,row.names=FALSE)
+  
+  Name_NHOL_table <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                            paste0(Names[i], "_NHOL_table.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_HOL_table <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                            paste0(Names[i], "_HOL_table.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_NHOL_table$ethnicity <- 'nhol'
+  Name_HOL_table$ethnicity <- 'hol'
+  
+  Name_NHOL_table <- Name_NHOL_table %>%  group_by(Var1, Freq) %>% summarise(people=n())
+  Name_NHOL_table$ethnicity <- 'nhol'
+  Name_NHOL_table$Cancer <- Names[i]
+  
+  Name_HOL_table <- Name_HOL_table %>%  group_by(Var1, Freq) %>% summarise(people=n())
+  Name_HOL_table$ethnicity <- 'hol'
+  Name_HOL_table$Cancer <- Names[i]
+  
+  write.csv(Name_NHOL_table,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_NHOL_table", ".csv")),quote=FALSE,row.names=FALSE)
+  write.csv(Name_HOL_table,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_HOL_table", ".csv")),quote=FALSE,row.names=FALSE)
+  
+  assign(paste(Names[i],sep=''),Name)
+  assign(paste(Names[i], '_NHOL',sep=''),Name_NHOL)
+  assign(paste(Names[i], '_NHOL_table',sep=''),Name_NHOL_table)
+  assign(paste(Names[i], '_HOL',sep=''),Name_HOL)
+  assign(paste(Names[i], '_HOL_table',sep=''),Name_HOL_table)
+  
+}
+## Run Avg_Eth.py before running this loop
+i = 13
+for (i in 1:length(Names)){
+  Name_frequencies_df_NHOL <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                                     paste0(Names[i], "_nhol_avg.csv", sep='')), header=F, stringsAsFactors = F)
+  Name_frequencies_df_HOL <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                                     paste0(Names[i], "_hol_avg.csv", sep='')), header=F, stringsAsFactors = F)
+  names(Name_frequencies_df_NHOL)[names(Name_frequencies_df_NHOL) == 'V1'] <- 'Var1'
+  names(Name_frequencies_df_NHOL)[names(Name_frequencies_df_NHOL) == 'V2'] <- 'pc.nhol'
+  
+  names(Name_frequencies_df_HOL)[names(Name_frequencies_df_HOL) == 'V1'] <- 'Var1'
+  names(Name_frequencies_df_HOL)[names(Name_frequencies_df_HOL) == 'V2'] <- 'pc.hol'
+  
+  ## Some cancers only have 1 gender data, need to fix this part onwards
+  Name_a <- as.data.frame((Name_frequencies_df_NHOL$Var1[!(Name_frequencies_df_NHOL$Var1 %in% Name_frequencies_df_HOL$Var1)])) ## occur in male but not female
+  Name_b <- as.data.frame((Name_frequencies_df_HOL$Var1[!(Name_frequencies_df_HOL$Var1 %in% Name_frequencies_df_NHOL$Var1)])) ## occur in female but not male
+  
+  #Name_a$Freq <- as.integer(0)
+  Name_a$pc.hol <- as.numeric(0)
+  Name_a$ethnicity <- as.character('hol')
+  names(Name_a)[names(Name_a) == '(Name_frequencies_df_NHOL$Var1[!(Name_frequencies_df_NHOL$Var1 %in% Name_frequencies_df_HOL$Var1)])'] <- 'Var1' ##rename so can bind row
+  Name_frequencies_df_HOL$ethnicity <- as.character('hol')
+  Name_frequencies_df_HOL <- rbind(Name_frequencies_df_HOL, Name_a)
+  Name_frequencies_df_HOL$ethnicity <- as.character('hol')
+  
+  
+  ####### Calculate SD
+  Name_HOL_table <-read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                           paste0(Names[i], "_HOL_table.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_HOL_table <- merge(Name_HOL_table, Name_frequencies_df_HOL, by='Var1')
+  names(Name_HOL_table)[names(Name_HOL_table) == 'pc.hol'] <- 'Total_Avg_HOL'
+  Name_HOL_table$ethnicity.y <- NULL
+  
+  Name_HOL_table$Freq_Mean <- Name_HOL_table$Freq-Name_HOL_table$Total_Avg_HOL
+  Name_HOL_table$Freq_Mean2 <- (Name_HOL_table$Freq_Mean)*(Name_HOL_table$Freq_Mean)
+  
+  Name_HOL_gene1 <- unique(Name_HOL_table$Var1)
+  Name_HOL_new1 = matrix(0,nrow = length(Name_HOL_gene1), ncol = 2)
+  for(j in 1:length(Name_HOL_gene1)){
+    Name_HOL_A <- Name_HOL_table %>% filter(Var1 == Name_HOL_gene1[j])
+    Name_HOL_new1[j,2] = sum(Name_HOL_A[,8])
+    Name_HOL_new1[j,1] = Name_HOL_gene1[j]
+    popHOL = sum(Name_HOL_A$people)
+  }
+  
+  
+  
+  Name_HOL_table_SD <- as.data.frame(Name_HOL_new1) ## This contains the sum of the squared values for each gene
+  write.csv(Name_HOL_table_SD,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_HOL_table_SD", ".csv")),quote=FALSE,row.names=FALSE)
+  Name_HOL_table_SD <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files/", 
+                                               paste0(Names[i], "_HOL_table_SD.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  
+  Name_HOL_table_SD <- transform(Name_HOL_table_SD, variance = V2/popHOL)
+  Name_HOL_table_SD <- transform(Name_HOL_table_SD, SD_HOL = sqrt(variance))
+  names(Name_HOL_table_SD)[names(Name_HOL_table_SD) == 'V1'] <- 'Var1'
+  Name_HOL_table_SD <- merge(Name_HOL_table_SD, Name_HOL_table, by='Var1')
+  
+  Name_HOL_table_SD<-((Name_HOL_table_SD %>% dplyr::select(Var1, Total_Avg_HOL, SD_HOL)))
+  Name_HOL_table_SD <- unique(Name_HOL_table_SD)
+  
+  
+  
+  
+  Name_b <- as.data.frame((Name_frequencies_df_HOL$Var1[!(Name_frequencies_df_HOL$Var1 %in% Name_frequencies_df_NHOL$Var1)])) ## occur in female but not male
+  
+  #Name_b$Freq <- as.integer(0)
+  Name_b$pc.nhol <- as.numeric(0)
+  Name_b$ethnicity <- as.character('nhol')
+  names(Name_b)[names(Name_b) == '(Name_frequencies_df_HOL$Var1[!(Name_frequencies_df_HOL$Var1 %in% Name_frequencies_df_NHOL$Var1)])'] <- 'Var1'
+  Name_frequencies_df_NHOL$ethnicity <- as.character('nhol')
+  Name_frequencies_df_NHOL <- rbind(Name_frequencies_df_NHOL, Name_b)
+  Name_frequencies_df_NHOL$ethnicity <- as.character('nhol')
+  
+  Name_NHOL_table <-read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                           paste0(Names[i], "_NHOL_table.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  Name_NHOL_table <- merge(Name_NHOL_table, Name_frequencies_df_NHOL, by='Var1')
+  names(Name_NHOL_table)[names(Name_NHOL_table) == 'pc.nhol'] <- 'Total_Avg_NHOL'
+  Name_NHOL_table$ethnicity.y <- NULL
+  
+  Name_NHOL_table$Freq_Mean <- Name_NHOL_table$Freq-Name_NHOL_table$Total_Avg_NHOL
+  Name_NHOL_table$Freq_Mean2 <- (Name_NHOL_table$Freq_Mean)*(Name_NHOL_table$Freq_Mean)
+  
+  Name_NHOL_gene1 <- unique(Name_NHOL_table$Var1)
+  Name_NHOL_new1 = matrix(0,nrow = length(Name_NHOL_gene1), ncol = 2)
+  for(j in 1:length(Name_NHOL_gene1)){
+    Name_NHOL_B <- Name_NHOL_table %>% filter(Var1 == Name_NHOL_gene1[j])
+    Name_NHOL_new1[j,2] = sum(Name_NHOL_B[,8])
+    Name_NHOL_new1[j,1] = Name_NHOL_gene1[j]
+    popNHOL = sum(Name_NHOL_B$people)
+  }
+  
+  
+  
+  Name_NHOL_table_SD <- as.data.frame(Name_NHOL_new1) ## This contains the sum of the squared values for each gene
+  write.csv(Name_NHOL_table_SD,file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files",paste0(Names[i], "_NHOL_table_SD", ".csv")),quote=FALSE,row.names=FALSE)
+  Name_NHOL_table_SD <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/Cancer_Files", 
+                                               paste0(Names[i], "_NHOL_table_SD.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  
+  Name_NHOL_table_SD <- transform(Name_NHOL_table_SD, variance = V2/popNHOL)
+  Name_NHOL_table_SD <- transform(Name_NHOL_table_SD, SD_NHOL = sqrt(variance))
+  names(Name_NHOL_table_SD)[names(Name_NHOL_table_SD) == 'V1'] <- 'Var1'
+  Name_NHOL_table_SD <- merge(Name_NHOL_table_SD, Name_NHOL_table, by='Var1')
+  
+  Name_NHOL_table_SD<-((Name_NHOL_table_SD %>% dplyr::select(Var1, Total_Avg_NHOL, SD_NHOL)))
+  Name_NHOL_table_SD <- unique(Name_NHOL_table_SD)
+  
+  Name_a <- as.data.frame((Name_NHOL_table_SD$Var1[!(Name_NHOL_table_SD$Var1 %in% Name_HOL_table_SD$Var1)])) ## occur in male but not female
+  Name_b <- as.data.frame((Name_HOL_table_SD$Var1[!(Name_HOL_table_SD$Var1 %in% Name_NHOL_table_SD$Var1)])) ## occur in female but not male
+  
+  Name_a$Total_Avg_HOL<- as.numeric(0)
+  Name_a$SD_HOL<- as.numeric(0)
+  
+  names(Name_a)[names(Name_a) == '(Name_NHOL_table_SD$Var1[!(Name_NHOL_table_SD$Var1 %in% Name_HOL_table_SD$Var1)])'] <- 'Var1' ##rename so can bind row
+  Name_HOL_table_SD <- rbind(Name_HOL_table_SD, Name_a)
+  Name_HOL_table_SD$ethnicity <- as.character('hol')
+  
+  Name_b$Total_Avg_NHOL<- as.numeric(0)
+  Name_b$SD_NHOL<- as.numeric(0)
+  
+  names(Name_b)[names(Name_b) == '(Name_HOL_table_SD$Var1[!(Name_HOL_table_SD$Var1 %in% Name_NHOL_table_SD$Var1)])'] <- 'Var1' ##rename so can bind row
+  Name_NHOL_table_SD <- rbind(Name_NHOL_table_SD, Name_b)
+  Name_NHOL_table_SD$ethnicity <- as.character('nhol')
+  
+  
+  Name_frequencies_df_both <- merge(Name_frequencies_df_NHOL, Name_frequencies_df_HOL, by='Var1')
+  Name_frequencies_df_both <- Name_frequencies_df_both %>% mutate(specificity = ifelse(pc.nhol == 0, 'hol', ifelse(pc.hol ==0, 'nhol', 'common')))
+  
+  
+  Name_frequencies_df_both_1 <-  merge(Name_NHOL_table_SD, Name_HOL_table_SD, by='Var1')
+  names(Name_frequencies_df_both_1)[names(Name_frequencies_df_both_1) == 
+                                      'Total_Avg_NHOL'] <- 'pc.nhol'
+  
+  names(Name_frequencies_df_both_1)[names(Name_frequencies_df_both_1) == 
+                                      'Total_Avg_HOL'] <- 'pc.hol'
+  
+  
+  Name_frequencies_df_both_1 <- Name_frequencies_df_both_1 %>% mutate(specificity = ifelse(pc.nhol == 0, 'hol', ifelse(pc.hol ==0, 'nhol', 'common')))
+  
+  
+  Name_frequencies_df_NHOL_high <- Name_frequencies_df_both_1[with(Name_frequencies_df_both_1,order(-pc.nhol)),]
+  Name_frequencies_df_NHOL_high <- Name_frequencies_df_NHOL_high[1:20,]
+  
+  
+  
+  
+  Name_frequencies_df_HOL_high <- Name_frequencies_df_both_1[with(Name_frequencies_df_both_1,order(-pc.hol)),]
+  Name_frequencies_df_HOL_high <- Name_frequencies_df_HOL_high[1:20,]
+  
+  
+  
+  Name_frequencies_df_NHOL_high <- Name_frequencies_df_NHOL_high %>% mutate(genes_shared = ifelse(Name_frequencies_df_NHOL_high$Var1 %in% Name_frequencies_df_HOL_high$Var1, 'common',  'nhol'))
+  Name_frequencies_df_NHOL_high$eth_freq <- 'Highest in NHOL'
+  Name_frequencies_df_HOL_high <- Name_frequencies_df_HOL_high %>% mutate(genes_shared = ifelse(Name_frequencies_df_HOL_high$Var1 %in% Name_frequencies_df_NHOL_high$Var1, 'common',  'hol'))
+  Name_frequencies_df_HOL_high$eth_freq <- 'Highest in HOL'
+  
+  
+  Name_try_NHOL <- (Name_frequencies_df_NHOL_high %>% dplyr::select(Var1, pc.nhol, SD_NHOL, ethnicity.x))
+  Name_try_NHOL_sub <- (Name_frequencies_df_NHOL_high %>% dplyr::select(Var1, pc.hol, SD_HOL, ethnicity.y))
+  setnames(Name_try_NHOL, old = c("pc.nhol", "SD_NHOL", "ethnicity.x"), new = c("pc", "SD", "ethnicity"))
+  setnames(Name_try_NHOL_sub, old = c("pc.hol", "SD_HOL", "ethnicity.y"), new = c("pc", "SD", "ethnicity"))
+  Name_try_NHOL <- rbind(Name_try_NHOL, Name_try_NHOL_sub)
+  
+  Name_try_HOL <- (Name_frequencies_df_HOL_high %>% dplyr::select(Var1, pc.nhol, SD_NHOL, ethnicity.x))
+  Name_try_HOL_sub <- (Name_frequencies_df_HOL_high %>% dplyr::select(Var1, pc.hol, SD_HOL, ethnicity.y))
+  setnames(Name_try_HOL, old = c("pc.nhol", "SD_NHOL", "ethnicity.x"), new = c("pc", "SD", "ethnicity"))
+  setnames(Name_try_HOL_sub, old = c("pc.hol", "SD_HOL", "ethnicity.y"), new = c("pc", "SD", "ethnicity"))
+  Name_try_HOL <- rbind(Name_try_HOL, Name_try_HOL_sub)
+  
+  
+  Name_frequencies_df_high <- rbind(Name_frequencies_df_NHOL_high,Name_frequencies_df_HOL_high)
+  
+  write.csv(Name_frequencies_df_both,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_frequencies_df_both", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  write.csv(Name_frequencies_df_high,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_frequencies_df_high", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  
+  write.csv(Name_frequencies_df_NHOL_high,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_df_NHOL_high", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  write.csv(Name_frequencies_df_HOL_high,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_df_HOL_high", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  
+  write.csv(Name_try_NHOL,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_try_NHOL", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  write.csv(Name_try_HOL,file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph",paste0(Names[i], "_try_HOL", ".csv")),
+            quote=FALSE,row.names=FALSE)
+  
+  
+  assign(paste(Names[i], '_a',sep=''),Name_a)
+  assign(paste(Names[i], '_b',sep=''),Name_b)
+  
+  assign(paste(Names[i], '_frequencies_df_NHOL',sep=''),Name_frequencies_df_NHOL)
+  
+  
+  assign(paste(Names[i], '_frequencies_df_HOL',sep=''),Name_frequencies_df_HOL)
+  
+  assign(paste(Names[i], '_frequencies_df_both',sep=''),Name_frequencies_df_both)
+  assign(paste(Names[i], '_frequencies_df_NHOL_high',sep=''),Name_frequencies_df_NHOL_high)
+  assign(paste(Names[i], '_frequencies_df_HOL_high',sep=''),Name_frequencies_df_HOL_high)
+  assign(paste(Names[i], '_frequencies_df_high',sep=''),Name_frequencies_df_high)
+  assign(paste(Names[i], '_try_NHOL',sep=''),Name_try_NHOL)
+  assign(paste(Names[i], '_try_NHOL_sub',sep=''),Name_try_NHOL_sub)
+  assign(paste(Names[i], '_try_HOL',sep=''),Name_try_HOL)
+  assign(paste(Names[i], '_try_HOL_sub',sep=''),Name_try_HOL_sub)
+}
+i = 1
+for(i in 1:length(Names)){
+  Name_frequencies_df_both <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                                        paste0(Names[i], "_frequencies_df_both.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_frequencies_df_high <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                                        paste0(Names[i], "_frequencies_df_high.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  Name_frequencies_df_NHOL_high <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                                          paste0(Names[i], "_df_NHOL_high.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_frequencies_df_HOL_high <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                                          paste0(Names[i], "_df_HOL_high.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  Name_try_NHOL <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                          paste0(Names[i], "_try_NHOL.csv", sep='')), header=T, stringsAsFactors = F)
+  Name_try_HOL <- read.csv(file = file.path("/home/chris-holt/Desktop/Eth_Data/filesTograph", 
+                                          paste0(Names[i], "_try_HOL.csv", sep='')), header=T, stringsAsFactors = F)
+  
+  
+  Name_cut_off_NHOL <- (max(Name_frequencies_df_both$pc.nhol)*0.30)
+  Name_cut_off_HOL <- (max(Name_frequencies_df_both$pc.hol)*0.30)
+  
+  Name_Genes_Distro <- (ggplot(Name_frequencies_df_both, aes(pc.nhol, pc.hol, color = specificity, alpha = 1))
+                        #+ geom_text_repel(aes(Name_frequencies_df_high$Var1, size = 3, stat='unique'))
+                        + geom_text_repel(data = subset(Name_frequencies_df_both, pc.nhol >= Name_cut_off_NHOL  | pc.hol >=Name_cut_off_HOL), aes(pc.nhol,pc.hol,label=Var1), size = 3)
+                        + geom_jitter()#width = 0.1, height = 0.1)
+                        + xlab('Average Not Hispanic or Latino')
+                        + xlim(0,2.4)
+                        + ylim(0,2.4)
+                        + geom_abline(slope = 1, intercept = 0)
+                        + ylab('Average Hispanic or Latino')
+                        + ggtitle(paste('Average number of mutatons per gene \n between Not Hispanic or Latino and Hispanic or Latino in \n', Names_Full[i]))#,subtitle = paste(Names_Full[i]))
+                        + theme_linedraw()
+                        + theme(plot.title = element_text(hjust = 0.5))
+                        #+ scale_color_manual(values = c('#8B008B','#ff0000', '#0000ff'))
+  )
+  
+  ## No text
+  Name_Genes_Distro_1 <- (ggplot(Name_frequencies_df_both, aes(pc.nhol, pc.hol, color = specificity, alpha = 1))
+                          #+ geom_text_repel(aes(Name_frequencies_df_high$Var1, size = 3, stat='unique'))
+                          # + geom_text_repel(data = subset(Name_frequencies_df_both, pc.m >= Name_cut_off_M  | pc.f >=Name_cut_off_F), aes(pc.m,pc.f,label=Var1), size = 3)
+                          + geom_jitter()#width = 0.1, height = 0.1)
+                          + xlab('Average Not Hispanic or Latino')
+                          + xlim(0,2.3)
+                          + geom_abline(slope = 1, intercept = 0)
+                          + ylim(0,2.3)
+                          + ylab('Average Hispanic or Latino')
+                          + ggtitle(paste('Average number of mutatons per gene \n between Not Hispanic or Latino and Hispanic or Latino in \n', Names_Full[i]))#,subtitle = paste(Names_Full[i]))
+                          + theme_linedraw()
+                          + theme(plot.title = element_text(hjust = 0.5))
+                          #+ scale_color_manual(values = c('#8B008B','#ff0000', '#0000ff'))
+  )
+  
+  Name_Genes_Distro_1_1 <- (ggplot(Name_frequencies_df_both, aes(pc.nhol, pc.hol, color = specificity, alpha = 1, text = Var1))
+                          + geom_jitter()#width = 0.1, height = 0.1)
+                          + xlab('Average Not Hispanic or Latino')
+                          + xlim(0,2.3)
+                          + geom_abline(slope = 1, intercept = 0)
+                          + ylim(0,2.3)
+                          + ylab('Average Hispanic or Latino')
+                          + ggtitle(paste('Average number of mutatons per gene between Not Hispanic or Latino and Hispanic or Latino in ', Names_Full[i]))#,subtitle = paste(Names_Full[i]))
+                          + theme_linedraw()
+                          + theme(plot.title = element_text(hjust = 0.5))
+                          #+ scale_color_manual(values = c('#8B008B','#ff0000', '#0000ff'))
+  )
+  
+  Name_Genes_Distro_1_Int <- ggplotly(Name_Genes_Distro_1_1)
+  
+  
+  Name_Genes_High <- (ggplot(Name_frequencies_df_high, aes(pc.nhol, pc.hol, color = genes_shared)) + geom_point() 
+                      + geom_text_repel(aes(label = Name_frequencies_df_high$Var1), size = 3, stat='unique')
+                      + xlab('Average Not Hispanic or Latino')      
+                      #+ xlim(0,2)
+                      #+ ylim(0,2)
+                      + ylab('Average Hispanic or Latino')
+                      + geom_abline(slope = 1, intercept = 0)
+                      + ggtitle(paste('Genes with the highest  \n average numbers of mutations \n  in Not Hispanic or Latino and Hispanic or Latino in \n', Names_Full[i]))
+                      + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5))
+                      #+ scale_color_manual(values = c('#8B008B','#ff0000', '#0000ff'))
+                      + labs(color='specificity')
+  )
+  Name_Genes_High_1 <- (ggplot(Name_frequencies_df_high, aes(pc.nhol, pc.hol, color = genes_shared, text = Var1)) + geom_point() 
+                      + xlab('Average Not Hispanic or Latino')      
+                      #+ xlim(0,2)
+                      #+ ylim(0,2)
+                      + ylab('Average Hispanic or Latino')
+                      + geom_abline(slope = 1, intercept = 0)
+                      + ggtitle(paste('Genes with the highest average numbers of mutations in Not Hispanic or Latino and Hispanic or Latino in ', Names_Full[i]))
+                      + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5))
+                      #+ scale_color_manual(values = c('#8B008B','#ff0000', '#0000ff'))
+                      + labs(color='specificity')
+  )
+  Name_Genes_High_Int <- ggplotly(Name_Genes_High_1)
+  
+  
+  ## Gene high bar graph but with bars side by side
+  # This does not work at reordering the graph
+  # Name_try_NHOL <- as.data.frame(arrange(Name_try_NHOL, ethnicity, desc(pc)))
+  # 
+  # Name_try_NHOL_1 <- (Name_try_NHOL %>% filter(ethnicity == 'nhol') %>% dplyr::select(Var1, pc, SD, ethnicity))
+  # Name_try_NHOL_2 <- (Name_try_NHOL %>% filter(ethnicity == 'hol') %>% dplyr::select(Var1, pc, SD, ethnicity))
+  # 
+  # Name_try_NHOL_1 <- Name_try_NHOL_1[with(Name_try_NHOL_1,order(-pc)), ] 
+  # Name_try_NHOL_2 <- Name_try_NHOL_2[with(Name_try_NHOL_2,order(-pc)), ] 
+  # 
+  # Name_try_NHOL <- rbind(Name_try_NHOL_1, Name_try_NHOL_2)
+  
+  Name_Gene_NHOL_Bar_1 <- (ggplot(Name_try_NHOL, aes(x = Var1, fill = ethnicity)) + geom_bar(aes(x = Var1, y = pc),position = 'dodge', stat = 'identity')
+                        + geom_errorbar((aes(ymin = pc-SD, ymax = pc+SD)), position = 'dodge')
+                        + coord_flip()
+                        + xlab('Gene')
+                        + labs(caption = Names[i])
+                        + ylab('Average number of mutations per person')
+                        #+ scale_fill_manual(values = c('#ff0000', '#0000ff'))
+                        + ggtitle(paste('Genes with the highest average \n number of mutations in Not Hispanic or Latino with \n', Names_Full[i]))
+                        + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5))
+  )
+  Name_Gene_HOL_Bar_1 <- (ggplot(Name_try_HOL, aes(x = Var1, fill = ethnicity)) + geom_bar(aes(x = Var1, y = pc),position = 'dodge', stat = 'identity')
+                        + geom_errorbar((aes(ymin = pc-SD, ymax = pc+SD)), position = 'dodge')
+                        + coord_flip()
+                        + labs(caption = Names[i])
+                        + xlab('Gene')
+                        + ylab('Average number of mutations per person')
+                        #+ scale_fill_manual(values = c('#ff0000', '#0000ff'))
+                        + ggtitle(paste('Genes with the highest average \n number of mutations in Hispanic or Latino with \n', Names_Full[i]))
+                        + theme_linedraw() + theme(plot.title = element_text(hjust = 0.5))
+  )
+  
+  assign(paste(Names[i], 'Genes_Distro',sep=''),Name_Genes_Distro)
+  assign(paste(Names[i], 'Genes_Distro_1',sep=''),Name_Genes_Distro_1)
+  assign(paste(Names[i], 'Genes_Distro_1_1',sep=''),Name_Genes_Distro_1_1)
+  assign(paste(Names[i], 'Genes_High',sep=''),Name_Genes_High)
+  assign(paste(Names[i], 'Genes_High_1',sep=''),Name_Genes_High_1)
+  
+  # assign(paste(Names[i], '_Gene_M_Bar',sep=''),Name_Gene_M_Bar)
+  # assign(paste(Names[i], '_Gene_F_Bar',sep=''),Name_Gene_F_Bar)
+  assign(paste(Names[i], '_Gene_NHOL_Bar_1',sep=''),Name_Gene_NHOL_Bar_1)
+  assign(paste(Names[i], '_Gene_HOL_Bar_1',sep=''),Name_Gene_HOL_Bar_1)
+  
+  
+   #ggsave(Name_Genes_Distro,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/Gene_Distro_1",paste0(Names[i], "_Genes_Distro", ".jpg")), width = 6, height = 6, units = 'in')
+  # ggsave(Name_Genes_Distro_1,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/Gene_Distro_1/No_Text",paste0(Names[i], "_Genes_Distro_1", ".jpg")), width = 6, height = 6, units = 'in')
+  # ggsave(Name_Genes_High,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/High_Gene/Scatter",paste0(Names[i], "_Genes_High", ".jpg")), width = 6, height = 6, units = 'in')
+  # #ggsave(Name_Gene_M_Bar,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/High_Gene/Bar",paste0(Names[i], "_Genes_High_M_Bar", ".jpg")), width = 6, height = 6, units = 'in')
+  # #ggsave(Name_Gene_F_Bar,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/High_Gene/Bar",paste0(Names[i], "_Genes_High_F_Bar", ".jpg")), width = 6, height = 6, units = 'in')
+  # ggsave(Name_Gene_NHOL_Bar_1,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/High_Gene/Bar/sideByside",paste0(Names[i], "_Genes_High_NHOL_Bar_1", ".jpg")), width = 6, height = 6, units = 'in')
+  # ggsave(Name_Gene_HOL_Bar_1,file = file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/High_Gene/Bar/sideByside",paste0(Names[i], "_Genes_High_HOL_Bar_1", ".jpg")), width = 6, height = 6, units = 'in')
+  
+  htmlwidgets::saveWidget(widget = Name_Genes_Distro_1_Int, file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/Interactive_Graphs",paste0(Names[i], "_Genes_Distro", ".html")), selfcontained = FALSE)
+  htmlwidgets::saveWidget(widget = Name_Genes_High_Int,  file.path("/home/chris-holt/Desktop/Eth_Data/Graph1/Interactive_Graphs",paste0(Names[i], "_Genes_High", ".html")), selfcontained = FALSE)
+
+}
+
