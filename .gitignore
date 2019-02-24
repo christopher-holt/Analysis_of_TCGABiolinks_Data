@@ -1,2 +1,5 @@
 Datasets/
 GDCdata/
+.Rproj.user/
+.RData
+.RHistory
