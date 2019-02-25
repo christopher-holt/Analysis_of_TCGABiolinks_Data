@@ -9,7 +9,9 @@ source("Scripts/functions.R")
 ##-----------------------------------------------------------------------------------------------------------
 
 setwd('Datasets')
-
+columnsofInterest <- c("tumor_barcode", "primary_diagnosis", "tumor_stage", "gender", "ethnicity", "race", "age_at_diagnosis", 
+                       "pipeline", "Mut_Type", "nucChange", "hugo_symbol", "disease", "years_smoked", "cigarettes_per_day",
+                       "chromosome", "consequence", "one_consequence", "gene", "exon_number", "tissue_or_organ_of_origin")
 ##-----------------------------------------------------------------------------------------------------------
 ## These are the cancers that have been selected as potentially having a relationship with smoking
 ## and occurence
@@ -32,6 +34,8 @@ for (i in 1:length(Cancers)){
   mut <- download_mutational(Cancers[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers[i], ".csv"), delim = "\t")
   assign(paste(Cancers[i]), total)
 }
@@ -40,6 +44,8 @@ for (i in 1:length(Cancers1)){
   mut <- download_mutational(Cancers1[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers1[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers1[i], ".csv"), delim = "\t")
   assign(paste(Cancers1[i]), total)
 }
@@ -48,6 +54,8 @@ for (i in 1:length(Cancers2)){
   mut <- download_mutational(Cancers2[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers2[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers2[i], ".csv"), delim = "\t")
   assign(paste(Cancers2[i]), total)
 }
@@ -56,6 +64,8 @@ for (i in 1:length(Cancers3)){
   mut <- download_mutational(Cancers3[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers3[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers3[i], ".csv"), delim = "\t")
   assign(paste(Cancers3[i]), total)
 }
@@ -64,6 +74,8 @@ for (i in 1:length(Cancers4)){
   mut <- download_mutational(Cancers4[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers4[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers4[i], ".csv"), delim = "\t")
   assign(paste(Cancers4[i]), total)
 }
@@ -72,6 +84,8 @@ for (i in 1:length(Cancers5)){
   mut <- download_mutational(Cancers5[i])
   mut <- classify_Changes(mut)
   total <- merge_ind(clin,mut)
+  total_sub <- total %>% select(one_of(columnsofInterest))
+  write_delim(total_sub, paste0(Cancers5[i], "_select.csv"), delim = "\t")
   write_delim(total, paste0(Cancers5[i], ".csv"), delim = "\t")
   assign(paste(Cancers5[i]), total)
 }
