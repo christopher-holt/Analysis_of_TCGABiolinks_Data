@@ -165,6 +165,33 @@ sites <- function(Data, category){
   return(new_site)
 }
 ##-----------------------------------------------------------------------------------------------------------
+## This function will take a dataset and return a data table that consists of the unique ID and the
+## raw number of somatic point mutations for each person
+## type refers to either "smoker" or "non-smoker"
+##-----------------------------------------------------------------------------------------------------------
+
+number_mut <- function(File, type){
+  File_1 <- File %>% filter( mutation_status == "Somatic",
+                               variant_classification %in% c("Missense_Mutation", 
+                                  "Nonsense_Mutations", "Silent",
+                                  "Frame_Shift_Del",
+                                  "Frame_Shift_Ins", "In_Frame_Del", 
+                                  "In_Frame_Ins", "Indel"))
+  File_1_table <- as.data.frame(table(File_1$tumor_barcode, File_1$variant_classification)) %>%mutate_if(is.factor,as.character)
+  File_Sum <- File_1_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
+  File_Sum$status <- type
+  
+  return(File_Sum)
+}
+##-----------------------------------------------------------------------------------------------------------
+## This function will take a dataset and create a dataframe of the summary data to find quartile info
+## and add in pValue
+##-----------------------------------------------------------------------------------------------------------
+summary_data <- function(Data, type){
+  
+}
+
+##-----------------------------------------------------------------------------------------------------------
 ## End of Script
 ##-----------------------------------------------------------------------------------------------------------
 
