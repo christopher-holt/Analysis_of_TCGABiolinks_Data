@@ -11,7 +11,8 @@ source("Scripts/functions.R")
 setwd('Datasets')
 columnsofInterest <- c("tumor_barcode", "primary_diagnosis", "tumor_stage", "gender", "ethnicity", "race", "age_at_diagnosis", 
                        "pipeline", "Mut_Type", "nucChange", "hugo_symbol", "disease", "years_smoked", "cigarettes_per_day",
-                       "chromosome", "consequence", "one_consequence", "gene", "exon_number", "tissue_or_organ_of_origin")
+                       "chromosome", "consequence", "one_consequence", "gene", "exon_number", "tissue_or_organ_of_origin",
+                       "variant_classification", "mutation_status")
 ##-----------------------------------------------------------------------------------------------------------
 ## These are the cancers that have been selected as potentially having a relationship with smoking
 ## and occurence
@@ -36,8 +37,9 @@ for (i in 1:length(Cancers)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers[i], ".csv"), delim = "\t")
+  #write_delim(total, paste0(Cancers[i], ".csv"), delim = "\t")
   assign(paste(Cancers[i]), total)
+  assign(paste(Cancers[i], "_select"), total)
 }
 for (i in 1:length(Cancers1)){
   clin <- download_clinical(Cancers1[i])
@@ -46,8 +48,10 @@ for (i in 1:length(Cancers1)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers1[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers1[i], ".csv"), delim = "\t")
+  #write_delim(total, paste0(Cancers1[i], ".csv"), delim = "\t")
   assign(paste(Cancers1[i]), total)
+  assign(paste(Cancers1[i], "_select"), total)
+  
 }
 for (i in 1:length(Cancers2)){
   clin <- download_clinical(Cancers2[i])
@@ -56,8 +60,10 @@ for (i in 1:length(Cancers2)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers2[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers2[i], ".csv"), delim = "\t")
+  #write_delim(total, paste0(Cancers2[i], ".csv"), delim = "\t")
   assign(paste(Cancers2[i]), total)
+  assign(paste(Cancers2[i], "_select"), total)
+  
 }
 for (i in 1:length(Cancers3)){
   clin <- download_clinical(Cancers3[i])
@@ -66,8 +72,10 @@ for (i in 1:length(Cancers3)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers3[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers3[i], ".csv"), delim = "\t")
+  #write_delim(total, paste0(Cancers3[i], ".csv"), delim = "\t")
   assign(paste(Cancers3[i]), total)
+  assign(paste(Cancers3[i], "_select"), total)
+  
 }
 for (i in 1:length(Cancers4)){
   clin <- download_clinical(Cancers4[i])
@@ -76,8 +84,10 @@ for (i in 1:length(Cancers4)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers4[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers4[i], ".csv"), delim = "\t")
+  #write_delim(total, paste0(Cancers4[i], ".csv"), delim = "\t")
   assign(paste(Cancers4[i]), total)
+  assign(paste(Cancers4[i], "_select"), total)
+  
 }
 for (i in 1:length(Cancers5)){
   clin <- download_clinical(Cancers5[i])
@@ -86,13 +96,13 @@ for (i in 1:length(Cancers5)){
   total <- merge_ind(clin,mut)
   total_sub <- total %>% select(one_of(columnsofInterest))
   write_delim(total_sub, paste0(Cancers5[i], "_select.csv"), delim = "\t")
-  write_delim(total, paste0(Cancers5[i], ".csv"), delim = "\t")
+ # write_delim(total, paste0(Cancers5[i], ".csv"), delim = "\t")
   assign(paste(Cancers5[i]), total)
+  assign(paste(Cancers5[i], "_select"), total)
+  
 }
 
 rm(clin)
 rm(mut)
 rm(total)
-
-
-
+rm(total_sub)
