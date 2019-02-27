@@ -5,10 +5,10 @@ These files will download, manipulate TCGA data obtained through the R package T
 #### The Datasets and Output directories have been ignored for space reasons. Output may be added later
 ~/BiolinksAnalysis/Scripts  
 ~/BiolinksAnalysis/Datasets  
-~/BiolinksAnalysis/Output
-				/Output/Smoke
-						/Smoke/total_mut_graphs
-						/Smoke/total_mut_pval  
+~/BiolinksAnalysis/Output  
+				/Output/Smoke  
+						/Smoke/total_mut_graphs  
+						/Smoke/total_mut_pval    
 
 ## Scripts
 ####This folder contains all R scripts that will be used in this project
