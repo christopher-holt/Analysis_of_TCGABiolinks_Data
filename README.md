@@ -25,7 +25,7 @@ BiocManager::install("TCGAbiolinks")
 ```
 #### These packages need to be installed for python3  
 ```bash
-pip install pandas
+pip3 install pandas
 
 ```
 
