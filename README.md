@@ -10,11 +10,19 @@ These files will download, manipulate TCGA data obtained through the R package T
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/total_mut_graphs  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/total_mut_pval    
 
-## Table of Contents  
+## Table of Contents
+* Packages  
 * Directory Structure
 * Scripts
 * Datasets
 * Output
+
+## Packages  
+#### These packages need to be installed
+```r
+install.packages(c("tidyverse", "BiocManager", "magrittr"))
+BiocManager::install("TCGAbiolinks")
+```
 
 ## Scripts
 #### This folder contains all R scripts that will be used in this project
