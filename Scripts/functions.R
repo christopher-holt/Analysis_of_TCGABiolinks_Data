@@ -1,4 +1,9 @@
 ##-----------------------------------------------------------------------------------------------------------
+## This file will generate all general functions need throughout this project 
+##-----------------------------------------------------------------------------------------------------------
+
+
+##-----------------------------------------------------------------------------------------------------------
 ## imports
 ##-----------------------------------------------------------------------------------------------------------
 
@@ -89,31 +94,6 @@ classify_Changes <- function(Data){
 }
 
 ##-----------------------------------------------------------------------------------------------------------
-## This will utilise the functions above and download and merge the entire mutational and clinical datasets for 
-## each cancer
-##-----------------------------------------------------------------------------------------------------------
-
-merged <- function(Cancers){
-  pipelines <- c("somaticsniper", "muse", "mutect", "varscan2")
-  for (i in 1:length(Cancers)){
-    combined <- data.frame()
-    clinical <- download_clinical(Cancers[i])
-    for(j in 1:length(pipelines)){
-      mutational <- download_mutational(Cancers[i], pipelines[j])
-      mutational <- classify_Changes(mutational)
-      combined <- rbind(combined, mutational)
-    }
-    total <- merge(clinical, combined, by = "tumor_barcode")
-  return(total)
-  }
-}
-
-merge_ind <- function(clin, mut){
-  total <- merge(clin, mut, by = "tumor_barcode")
-  return(total)
-}
-
-##-----------------------------------------------------------------------------------------------------------
 ## Does each cancer site have enough data? This will only consider somatic point mutations. 
 ## This function only considers race and gender
 ##-----------------------------------------------------------------------------------------------------------
@@ -142,7 +122,6 @@ sites <- function(Data, category){
         new_site <- c(new_site, pot_sites[i])
       } 
     }
-    message("category does not equal gender")
   } else {
     cats <- as.character(unique(Data[[category]]))
     for (i in 1:length(pot_sites)){
@@ -165,31 +144,18 @@ sites <- function(Data, category){
   return(new_site)
 }
 ##-----------------------------------------------------------------------------------------------------------
-## This function will take a dataset and return a data table that consists of the unique ID and the
-## raw number of somatic point mutations for each person
-## type refers to either "smoker" or "non-smoker"
-##-----------------------------------------------------------------------------------------------------------
-
-number_mut <- function(File, type){
-  File_1 <- File %>% filter( mutation_status == "Somatic",
-                               variant_classification %in% c("Missense_Mutation", 
-                                  "Nonsense_Mutations", "Silent",
-                                  "Frame_Shift_Del",
-                                  "Frame_Shift_Ins", "In_Frame_Del", 
-                                  "In_Frame_Ins", "Indel"))
-  File_1_table <- as.data.frame(table(File_1$tumor_barcode, File_1$variant_classification)) %>%mutate_if(is.factor,as.character)
-  File_Sum <- File_1_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
-  File_Sum$status <- type
-  
-  return(File_Sum)
-}
-##-----------------------------------------------------------------------------------------------------------
 ## This function will take a dataset and create a dataframe of the summary data to find quartile info
 ## and add in pValue
 ##-----------------------------------------------------------------------------------------------------------
-summary_data <- function(Data, type){
+summary_data <- function(Data){
+  summary_1 <- as.data.frame(do.call(cbind, lapply(Data, summary)))
+  summary_1 <- add_rownames(summary_1, "Values")
+  Overview <- summary_1 %>% select(Values, total)
+  return(Overview)
   
 }
+
+
 
 ##-----------------------------------------------------------------------------------------------------------
 ## End of Script
