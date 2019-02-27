@@ -18,11 +18,18 @@ These files will download, manipulate TCGA data obtained through the R package T
 * Output
 
 ## Packages  
-#### These packages need to be installed
+#### These packages need to be installed R
 ```r
 install.packages(c("tidyverse", "BiocManager", "magrittr"))
 BiocManager::install("TCGAbiolinks")
 ```
+#### These packages need to be installed for python3  
+```bash
+pip install pandas
+
+```
+
+
 
 ## Scripts
 #### This folder contains all R scripts that will be used in this project
