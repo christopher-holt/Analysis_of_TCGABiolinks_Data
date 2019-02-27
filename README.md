@@ -1,12 +1,12 @@
 # BiolinksAnalysis
 These files will download, manipulate TCGA data obtained through the R package TCGAbiolinks
 
-#### Directory Structure
+## Directory Structure
 ~/BiolinksAnalysis/Scripts  
 ~/BiolinksAnalysis/Datasets  
 ~/BiolinksAnalysis/Output  
 
-#### Scripts
+## Scripts
 This folder contains all R scripts that will be used in this project
 
 functions.R - This will define all functions used in this project
