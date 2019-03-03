@@ -4,7 +4,7 @@ GDCdata/
 BiolinksAnalysis.Rproj
 .RData
 .Rhistory
-Output/*_Graph
+Output/Smoke/*_Graph
 Scripts/*.ipynb
 Scripts/.ipynb_checkpoints
 
