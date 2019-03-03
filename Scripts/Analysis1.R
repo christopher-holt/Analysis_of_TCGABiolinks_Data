@@ -21,7 +21,7 @@ pipelines <- unique(HNSC$pipeline)
 
 for (i in 1:length(Data_Names)){
   setwd("~/Research/BiolinksAnalysis/Datasets")
-  df <- read_delim(paste0(Data_Names[i], "_select.tsv"), delim = "\t")
+  df <- read_delim(paste0(Data_Names[i], "_select.csv"), delim = "\t")
   setwd("~/Research/BiolinksAnalysis/")
   df <- df %>% filter(mutation_status == "Somatic",
                              variant_classification %in% c("Missense_Mutation", 
@@ -64,11 +64,11 @@ for (i in 1:length(Data_Names)){
       Overview$pValue <- pVal_Sum
     
     ## Save summary data and plots
-      write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/Graphs/total_mut_pval/", paste0(pipelines[j], "/", 
+      write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/Graphs/total_mut_Graphs/", paste0(pipelines[j], "/", 
                                                                                 Data_Names[i],"_", valid_sites[k], 
                                                                                 ".tsv")), delim  = "\t")
       }, error = function(e){})
-      ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/pValues/total_mut_Graph/", paste0(pipelines[j], "/", 
+      ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/pValues/total_mut_pval/", paste0(pipelines[j], "/", 
                                                                                      Data_Names[i], "_", valid_sites[k], 
                                                                                      ".jpg")), width = 6,
              height = 6, units = "in")
