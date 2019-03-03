@@ -1,5 +1,14 @@
 Datasets/
-Output/Smoke/Graphs
+
+!Output/
+
+Output/*
+!Output/Smoke/
+
+Output/Smoke/*
+!Output/Smoke/pValues/
+
+
 GDCdata/
 .Rproj.user/
 BiolinksAnalysis.Rproj
