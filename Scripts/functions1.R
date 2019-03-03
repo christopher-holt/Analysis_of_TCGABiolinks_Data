@@ -60,16 +60,19 @@ smoke_sites <- function(Data){
 }
 
 ##-----------------------------------------------------------------------------------------------------------
-## This function will take a dataset, find nucChanges that aren't "deletion", "insertion" or "other",
-## and count the number of each nucChange per person
+## This function will take a dataset, count the number of TiTv per person
 ##-----------------------------------------------------------------------------------------------------------
-nucChange_Sum <- function(df, type, Initial){
- df_1 <- df %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
- df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$nucChange)) %>% mutate_if(is.factor,as.character)
- df_1_table$status <- paste0(length(unique(df_1_table$Var1)), "-",type)
- df_1_table$abbr <- paste0(Initial)
- return(df_1_table)
-}
+TiTv_count <- function(df, status, Initial){
+  df_1 <- df %>% filter(Mut_Type %in% c("Ti", "Tv")) %>% mutate_if(is.factor,as.character)
+  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$Mut_Type)) %>% mutate_if(is.factor,as.character)
+  
+  df_sum <- df_1_table %>% group_by(Var1) %>% mutate(pc = Freq/sum(Freq)*100)
+
+  df_sum$status <- paste0(length(unique(df_1_table$Var1)), "-", status)
+  df_sum$abbr <- paste0(Initial)
+  
+  return(df_sum)
+  }
 
 
 ##-----------------------------------------------------------------------------------------------------------
