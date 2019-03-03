@@ -29,8 +29,10 @@ for (i in 1:length(Data_Names)){
                                                            "Frame_Shift_Del",
                                                            "Frame_Shift_Ins", "In_Frame_Del", 
                                                            "In_Frame_Ins", "Indel")) 
-  valid_sites <- smoke_sites(df)
+
   for(j in 1:length(pipelines)){
+    df_1 <- df %>% filter(pipeline == pipelines[j])
+    valid_sites <- smoke_sites(df_1)
     for(k in 1:length(valid_sites)){
     ## Subset the data into smokers and non-smokers. These will be in a loop that separates cancer, pipeline, and location
     ## Set_1 are non-smokers, Set_2 are smokers
@@ -84,15 +86,15 @@ for (i in 1:length(Data_Names)){
       combined_nuc_1 <- combined_nuc_1 %>% group_by(Var1) %>% mutate(perc = (total/sum(total))*100)
       nucChanges <- as.character(unique(combined_nuc_1$Var2))
       
-      ggplot(combined_nuc_1) + geom_boxplot(aes(x = Var2, y = perc, fill = status)) + coord_flip()
+      nuc_graph <- ggplot(combined_nuc_1) + geom_boxplot(aes(x = Var2, y = perc, fill = status)) + coord_flip()
       
-      ggsave(combined_nuc_1, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/nucChangeGraph/", paste0(pipelines[j], "/", 
+      ggsave(nuc_graph, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/nucChangeGraph/", paste0(pipelines[j], "/", 
                                                                                                                      Data_Names[i], "_", valid_sites[k], 
                                                                                                                      ".jpg")), width = 6,
                     height = 6, units = "in")
-      
       for(n in 1:length(nucChanges)){
         change <- combined_nuc_1 %>% filter(Var2 == nucChanges[n])
+        tryCatch({
         pValue <- wilcox.test(total~status, data = change, paired = F)$p.value
         
         
@@ -106,13 +108,21 @@ for (i in 1:length(Data_Names)){
         
         change_summary <- rbind(change_1_summary_data, change_2_summary_data)
         change_summary$pValue <- pValue
-        
         write_delim(change_summary, file.path("~/Research/BiolinksAnalysis/Output/Smoke/nucChangepVal/", paste0(pipelines[j], "/", 
-                                                                                                           Data_Names[i],"_", valid_sites[k],
-                                                                                                           "_", nucChanges[n],
-                                                                                                           ".csv")), delim  = "\t")
+                                                                                                                Data_Names[i],"_", valid_sites[k],
+                                                                                                                "_", nucChanges[n],
+                                                                                                                ".csv")), delim  = "\t")
+        
+        }, error = function(e){})
         
       }
+      
+      ##-----------------------------------------------------------------------------------------------------------
+      ## For each Cancer, determine the valid sites, then for each location and each pipeline,
+      ## calculate the pValue  for Ti vs Tv
+      ##-----------------------------------------------------------------------------------------------------------
+      
+      
     }
   }
 }
