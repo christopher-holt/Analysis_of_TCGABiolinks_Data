@@ -9,7 +9,7 @@
 ##-----------------------------------------------------------------------------------------------------------
 
 source("~/Research/BiolinksAnalysis/Scripts/functions.R")
-
+source("~/Research/BiolinksAnalysis/Scripts/functions1.R")
 ##-----------------------------------------------------------------------------------------------------------
 ## Read in the data
 ##-----------------------------------------------------------------------------------------------------------
@@ -52,6 +52,7 @@ for (i in 1:length(Data_Names)){
       total_mut <- ggplot(Sum) + geom_boxplot(aes(x = status, y = total))
 
     ## Calculate the pValue and quartile data for both groups
+      tryCatch({
       pVal_Sum <- wilcox.test(total ~ status, data = Sum, paired = F)$p.value
       Overview_Set_2 <- summary_data(Set_2_Sum)
       Overview_Set_1 <- summary_data(Set_1_Sum)
@@ -66,6 +67,7 @@ for (i in 1:length(Data_Names)){
       write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/total_mut_pval/", paste0(pipelines[j], "/", 
                                                                                 Data_Names[i],"_", valid_sites[k], 
                                                                                 ".csv")), delim  = "\t")
+      }, error = function(e){})
       ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/total_mut_graphs/", paste0(pipelines[j], "/", 
                                                                                      Data_Names[i], "_", valid_sites[k], 
                                                                                      ".jpg")), width = 6,
@@ -122,10 +124,48 @@ for (i in 1:length(Data_Names)){
       ## calculate the pValue  for Ti vs Tv
       ##-----------------------------------------------------------------------------------------------------------
       
+      Set_1_TiTv <- TiTv_count(Set_1, "non-smoker", "NS")
+      Set_2_TiTv <- TiTv_count(Set_2, "smoker", "S")
+
+      combined_Ti_Tv <- rbind(Set_1_TiTv, Set_2_TiTv)
       
+      TiTv <- ggplot(combined_Ti_Tv) + geom_boxplot(aes(x = status, y = pc, fill = Var2))
+      ggsave(TiTv, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/TiTvGraph/", paste0(pipelines[j], "/", 
+                                                                                                            Data_Names[i], "_", valid_sites[k], 
+                                                                                                            ".jpg")), width = 6,
+             height = 6, units = "in")
+      
+      
+      combined_Ti_Tv <- combined_Ti_Tv %>% rename("total" = "pc")
+      type <- unique(combined_Ti_Tv$Var2)
+
+      for(l in 1:length(type)){
+        type_data <- combined_Ti_Tv %>% filter(Var2 == type[l])
+        tryCatch({
+        type_pval <- wilcox.test(total ~ status, data = type_data, paired = F)$p.value
+        
+        type_data_1 <- type_data %>% filter(abbr == "NS")
+        type_data_1_summary <- summary_data(type_data_1)
+        type_data_1_summary$status <- "NS"
+        
+        type_data_2 <- type_data %>% filter(abbr == "S")
+        type_data_2_summary <- summary_data(type_data_2)
+        type_data_2_summary$status <- "S"
+        
+        type_data_combined <- rbind(type_data_1_summary,type_data_2_summary)
+        
+        type_data_combined$pvalue <- type_pval
+        
+        write_delim(change_summary, file.path("~/Research/BiolinksAnalysis/Output/Smoke/TiTvpValue/", paste0(pipelines[j], "/", 
+                                                                                                                Data_Names[i],"_", valid_sites[k],
+                                                                                                                "_", type[l],
+                                                                                                                ".csv")), delim  = "\t")
+        }, error = function(e){})
+      }
     }
   }
 }
+
 
 
 
