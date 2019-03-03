@@ -2,8 +2,8 @@
 These scripts will download, manipulate, and analyse TCGA data obtained through the R package TCGAbiolinks
 
 ## Table of Contents
-* Packages  
 * Directory Structure
+* Packages  
 * Scripts
 * Datasets
 * Output
