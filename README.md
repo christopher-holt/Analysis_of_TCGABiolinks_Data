@@ -1,5 +1,12 @@
 # BiolinksAnalysis
-These files will download, manipulate TCGA data obtained through the R package TCGAbiolinks
+These scripts will download, manipulate, and analyse TCGA data obtained through the R package TCGAbiolinks
+
+## Table of Contents
+* Packages  
+* Directory Structure
+* Scripts
+* Datasets
+* Output
 
 ## Directory Structure
 #### The Datasets and Output directories have been ignored for space reasons. Output may be added later
@@ -10,12 +17,6 @@ These files will download, manipulate TCGA data obtained through the R package T
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/total_mut_graphs  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/total_mut_pval    
 
-## Table of Contents
-* Packages  
-* Directory Structure
-* Scripts
-* Datasets
-* Output
 
 ## Packages  
 #### These packages need to be installed (R)
