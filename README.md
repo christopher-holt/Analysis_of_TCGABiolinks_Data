@@ -9,7 +9,7 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 * Output
 
 ## Directory Structure
-#### The Datasets and Output directories have been ignored for space reasons. Output may be added later
+#### Datasets and Ouput/Smoke/Graphs have been ignored for space reasons
 ~/BiolinksAnalysis/Scripts  
 ~/BiolinksAnalysis/Datasets  
 ~/BiolinksAnalysis/Output  
