@@ -172,8 +172,8 @@ for(i in 1:length(cancers)){
       
       combined_Ti_Tv <- rbind(EA_Sum, AA_Sum)
       type <- unique(combined_Ti_Tv$Var2)
-      for(k in 1:length(type)){
-        subset <- combined_Ti_Tv %>% filter(Var2 == type[k])
+      for(l in 1:length(type)){
+        subset <- combined_Ti_Tv %>% filter(Var2 == type[l])
         pVal_Sum_ti_tv <- wilcox.test(Freq ~ race, data = subset, paired = F)$p.value
         pVal_Sum_ti_tv_pc <- wilcox.test(pc ~ race, data = subset, paired = F)$p.value
         write.csv(pVal_Sum_ti_tv, file = file.path("/home/chris-holt/Desktop/Biolinks/Wilcox/pValues/Ti_TV",
