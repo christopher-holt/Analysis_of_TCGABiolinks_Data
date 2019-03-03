@@ -1,0 +1,13 @@
+Values	total	status	pValue
+Min.	13	smoker	1
+1st Qu.	38	smoker	1
+Median	65	smoker	1
+Mean	72	smoker	1
+3rd Qu.	101	smoker	1
+Max.	183	smoker	1
+Min.	25	non-smoker	1
+1st Qu.	46.25	non-smoker	1
+Median	60.5	non-smoker	1
+Mean	105.125	non-smoker	1
+3rd Qu.	71.75	non-smoker	1
+Max.	451	non-smoker	1

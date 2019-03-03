@@ -64,11 +64,11 @@ for (i in 1:length(Data_Names)){
       Overview$pValue <- pVal_Sum
     
     ## Save summary data and plots
-      write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/Graphs/total_mut_Graphs/", paste0(pipelines[j], "/", 
+      write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/pValues/total_mut_pval/", paste0(pipelines[j], "/", 
                                                                                 Data_Names[i],"_", valid_sites[k], 
                                                                                 ".tsv")), delim  = "\t")
       }, error = function(e){})
-      ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/pValues/total_mut_pval/", paste0(pipelines[j], "/", 
+      ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/Graphs/total_mut_Graph/", paste0(pipelines[j], "/", 
                                                                                      Data_Names[i], "_", valid_sites[k], 
                                                                                      ".jpg")), width = 6,
              height = 6, units = "in")
