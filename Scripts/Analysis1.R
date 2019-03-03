@@ -8,8 +8,8 @@
 ## imports
 ##-----------------------------------------------------------------------------------------------------------
 
-source("../Scripts/functions.R")
-setwd("~/Research/BiolinksAnalysis/Datasets")
+source("~/Research/BiolinksAnalysis/Scripts/functions.R")
+
 ##-----------------------------------------------------------------------------------------------------------
 ## Read in the data
 ##-----------------------------------------------------------------------------------------------------------
@@ -18,9 +18,11 @@ Data_Names <- c("BLCA", "HNSC")#, "ESCA", "KICH", "KIRC", "LUSC", "PAAD", "STAD"
 ## LAML was removed for having no smoking data
 
 pipelines <- unique(HNSC$pipeline)
-## This will read in each Cancer and determine the important sites
+
 for (i in 1:length(Data_Names)){
+  setwd("~/Research/BiolinksAnalysis/Datasets")
   df <- read_delim(paste0(Data_Names[i], "_select.csv"), delim = "\t")
+  setwd("~/Research/BiolinksAnalysis/")
   df <- df %>% filter(mutation_status == "Somatic",
                              variant_classification %in% c("Missense_Mutation", 
                                                            "Nonsense_Mutations", "Silent",
@@ -35,6 +37,12 @@ for (i in 1:length(Data_Names)){
       Set_1 <- df %>% filter(is.na(cigarettes_per_day), pipeline == pipelines[j], tissue_or_organ_of_origin == valid_sites[k])
       Set_2 <- df %>% filter(!(is.na(cigarettes_per_day)), pipeline == pipelines[j], tissue_or_organ_of_origin == valid_sites[k])
     
+      
+      ##-----------------------------------------------------------------------------------------------------------
+      ## For each Cancer, determine the valid sites, then for each location and each pipeline,
+      ## calculate the pValue for the distribution of all somatic point mutations
+      ##-----------------------------------------------------------------------------------------------------------
+      
     ## For each dataset, find the total number of somatic point mutations per person 
       Set_2_Sum <- number_mut(Set_2, "smoker")
       Set_1_Sum <- number_mut(Set_1, "non-smoker")
@@ -53,20 +61,61 @@ for (i in 1:length(Data_Names)){
       Overview$pValue <- pVal_Sum
     
     ## Save summary data and plots
-      write_delim(Overview, file.path("../Output/Smoke/total_mut_pval/", paste0(pipelines[j], "/", 
+      write_delim(Overview, file.path("~/Research/BiolinksAnalysis/Output/Smoke/total_mut_pval/", paste0(pipelines[j], "/", 
                                                                                 Data_Names[i],"_", valid_sites[k], 
                                                                                 ".csv")), delim  = "\t")
-      ggsave(total_mut, file = file.path("../Output/Smoke/total_mut_graphs/", paste0(pipelines[j], "/", 
+      ggsave(total_mut, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/total_mut_graphs/", paste0(pipelines[j], "/", 
                                                                                      Data_Names[i], "_", valid_sites[k], 
                                                                                      ".jpg")), width = 6,
              height = 6, units = "in")
+      
+      ##-----------------------------------------------------------------------------------------------------------
+      ## For each Cancer, determine the valid sites, then for each location and each pipeline,
+      ## calculate the pValue between the percentage of nucleotide changes
+      ##-----------------------------------------------------------------------------------------------------------
+      Set_1_nuc <- nucChange_Sum(Set_1, "non-smoker", "NS")
+      Set_2_nuc <- nucChange_Sum(Set_2, "smoker", "S")
+      
+      combined_nuc <- rbind(Set_1_nuc, Set_2_nuc)
+      combined_nuc_1 <- combined_nuc %>%  group_by(status, Var1, Var2, abbr) %>% 
+                          summarise(total = sum(Freq)) %>% group_by(Var1) %>% mutate(perc = (total/sum(total))*100)
+      
+      
+      combined_nuc_1 <- combined_nuc_1 %>% group_by(Var1) %>% mutate(perc = (total/sum(total))*100)
+      nucChanges <- as.character(unique(combined_nuc_1$Var2))
+      
+      ggplot(combined_nuc_1) + geom_boxplot(aes(x = Var2, y = perc, fill = status)) + coord_flip()
+      
+      ggsave(combined_nuc_1, file = file.path("~/Research/BiolinksAnalysis/Output/Smoke/nucChangeGraph/", paste0(pipelines[j], "/", 
+                                                                                                                     Data_Names[i], "_", valid_sites[k], 
+                                                                                                                     ".jpg")), width = 6,
+                    height = 6, units = "in")
+      
+      for(n in 1:length(nucChanges)){
+        change <- combined_nuc_1 %>% filter(Var2 == nucChanges[n])
+        pValue <- wilcox.test(total~status, data = change, paired = F)$p.value
+        
+        
+        change_1_summary <- change %>% filter(abbr == "NS")
+        change_1_summary_data <- summary_data(change_1_summary)
+        change_1_summary_data$status <- "NS"
+        
+        change_2_summary <- change %>% filter(abbr == "S")
+        change_2_summary_data <- summary_data(change_2_summary)
+        change_2_summary_data$status <- "S"
+        
+        change_summary <- rbind(change_1_summary_data, change_2_summary_data)
+        change_summary$pValue <- pValue
+        
+        write_delim(change_summary, file.path("~/Research/BiolinksAnalysis/Output/Smoke/nucChangepVal/", paste0(pipelines[j], "/", 
+                                                                                                           Data_Names[i],"_", valid_sites[k],
+                                                                                                           "_", nucChanges[n],
+                                                                                                           ".csv")), delim  = "\t")
+        
+      }
     }
   }
 }
-
-
-
-
 
 
 
