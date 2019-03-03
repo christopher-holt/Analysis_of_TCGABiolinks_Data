@@ -25,7 +25,8 @@ number_mut <- function(File, type){
                                                            "In_Frame_Ins", "Indel"))
   File_1_table <- as.data.frame(table(File_1$tumor_barcode, File_1$variant_classification)) %>%mutate_if(is.factor,as.character)
   File_Sum <- File_1_table %>% group_by(Var1) %>% summarise(total = sum(Freq))
-  File_Sum$status <- type
+  File_Sum$status <- paste0(length(unique(File_1_table$Var1)), "-",type)
+
   
   return(File_Sum)
 }
@@ -57,6 +58,19 @@ smoke_sites <- function(Data){
   }
   return(new_site)
 }
+
+##-----------------------------------------------------------------------------------------------------------
+## This function will take a dataset, find nucChanges that aren't "deletion", "insertion" or "other",
+## and count the number of each nucChange per person
+##-----------------------------------------------------------------------------------------------------------
+nucChange_Sum <- function(df, type, Initial){
+ df_1 <- df %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
+ df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$nucChange)) %>% mutate_if(is.factor,as.character)
+ df_1_table$status <- paste0(length(unique(df_1_table$Var1)), "-",type)
+ df_1_table$abbr <- paste0(Initial)
+ return(df_1_table)
+}
+
 
 ##-----------------------------------------------------------------------------------------------------------
 ## End of Script
