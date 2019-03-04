@@ -40,7 +40,6 @@ You are welcome to redistribute it under the terms of the
 GNU General Public License versions 2 or 3.
 For more information about these matters see
 http://www.gnu.org/licenses/.
-
 ```
 
 ## Packages  
@@ -50,9 +49,8 @@ install.packages(c("tidyverse", "BiocManager", "magrittr"))
 BiocManager::install("TCGAbiolinks")
 ```
 #### These packages need to be installed (python3) 
-```bash
-pip3 install pandas
-
+```console
+$ pip3 install --user pandas
 ```
 
 
