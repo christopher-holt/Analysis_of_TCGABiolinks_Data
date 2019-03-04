@@ -45,20 +45,13 @@ http://www.gnu.org/licenses/.
 ## Packages  
 #### These packages need to be installed (R)
 ```r
-install.packages(c("tidyverse", "BiocManager", "magrittr"))
-BiocManager::install("TCGAbiolinks")
+> install.packages(c("tidyverse", "BiocManager", "magrittr"))
+> BiocManager::install("TCGAbiolinks")
 ```
 #### These packages need to be installed (python3) 
 ```console
 $ pip3 install --user pandas
-$ pip3 install --user jupyter
 ```
-To run Jupyter Notebook
-```console
-$ jupyter notebook
-```
-
-
 
 ## Scripts
 #### This folder contains all R scripts that will be used in this project
