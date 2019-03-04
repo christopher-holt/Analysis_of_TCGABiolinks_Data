@@ -51,6 +51,11 @@ BiocManager::install("TCGAbiolinks")
 #### These packages need to be installed (python3) 
 ```console
 $ pip3 install --user pandas
+$ pip3 install --user jupyter
+```
+To run Jupyter Notebook
+```console
+$ jupyter notebook
 ```
 
 
