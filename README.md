@@ -2,14 +2,16 @@
 These scripts will download, manipulate, and analyse TCGA data obtained through the R package TCGAbiolinks
 
 ## Table of Contents
-1. [Directory Structure](#directory structure)
+1. [Directory Structure](#directory_structure)
 * Languages
 * Packages  
 * Scripts
 * Datasets
 * Output
 
-## Directory Structure <a name="directory structure"></a>
+<div id='directory_structure'/>  
+
+## Directory Structure
 #### Datasets and Ouput/Smoke/Graphs have been ignored for space reasons
 ~/BiolinksAnalysis/Scripts  
 ~/BiolinksAnalysis/Datasets  
