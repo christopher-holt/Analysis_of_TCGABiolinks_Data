@@ -88,4 +88,39 @@ Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile
 ## Output
 #### This folder will contain all info generated as a result of Analysis\*.R files such as pValues and graphs
 
-Within total_mut_graphs and total_mut_pval are four directories created from Analysis1.R that separate the output data by the different mutational pipelines
+```console
+Output
+└── Smoke
+    ├── Graphs
+    │   ├── nucChange_Graph
+    │   │   ├── muse
+    │   │   ├── mutect
+    │   │   ├── somaticsniper
+    │   │   └── varscan2
+    │   ├── TiTv_Graph
+    │   │   ├── muse
+    │   │   ├── mutect
+    │   │   ├── somaticsniper
+    │   │   └── varscan2
+    │   └── total_mut_Graph
+    │       ├── muse
+    │       ├── mutect
+    │       ├── somaticsniper
+    │       └── varscan2
+    └── pValues
+        ├── nucChange_pVal
+        │   ├── muse
+        │   ├── mutect
+        │   ├── somaticsniper
+        │   └── varscan2
+        ├── TiTv_pVal
+        │   ├── muse
+        │   ├── mutect
+        │   ├── somaticsniper
+        │   └── varscan2
+        └── total_mut_pval
+            ├── muse
+            ├── mutect
+            ├── somaticsniper
+            └── varscan2
+```
