@@ -15,46 +15,6 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 #### Datasets and Ouput/Smoke/Graphs have been ignored for space reasons
 ```console
 BiolinksAnalysis
-├── Datasets
-├── Output
-│   └── Smoke
-│       ├── Graphs
-│       │   ├── nucChange_Graph
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   ├── TiTv_Graph
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   └── total_mut_Graph
-│       │       ├── muse
-│       │       ├── mutect
-│       │       ├── somaticsniper
-│       │       └── varscan2
-│       └── pValues
-│           ├── nucChange_pVal
-│           │   ├── muse
-│           │   ├── mutect
-│           │   ├── somaticsniper
-│           │   └── varscan2
-│           ├── TiTv_pVal
-│           │   ├── muse
-│           │   ├── mutect
-│           │   ├── somaticsniper
-│           │   └── varscan2
-│           └── total_mut_pval
-│               ├── muse
-│               ├── mutect
-│               ├── somaticsniper
-│               └── varscan2
-└── Scripts
-
-```
-```console
-BiolinksAnalysis
 ├── BiolinksAnalysis.Rproj
 ├── Datasets
 │   ├── BLCA.csv
