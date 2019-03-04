@@ -13,19 +13,47 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 
 ## Directory Structure
 #### Datasets and Ouput/Smoke/Graphs have been ignored for space reasons
-~/BiolinksAnalysis/Scripts  
-~/BiolinksAnalysis/Datasets  
-~/BiolinksAnalysis/Output  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Output/Smoke  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/Graphs/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Graphs/nucChange_Graph   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Graphs/TiTv_Graph   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Graphs/total_mut_Graph   
+```console
+BiolinksAnalysis
+├── Datasets
+├── Output
+│   └── Smoke
+│       ├── Graphs
+│       │   ├── nucChange_Graph
+│       │   │   ├── muse
+│       │   │   ├── mutect
+│       │   │   ├── somaticsniper
+│       │   │   └── varscan2
+│       │   ├── TiTv_Graph
+│       │   │   ├── muse
+│       │   │   ├── mutect
+│       │   │   ├── somaticsniper
+│       │   │   └── varscan2
+│       │   └── total_mut_Graph
+│       │       ├── muse
+│       │       ├── mutect
+│       │       ├── somaticsniper
+│       │       └── varscan2
+│       └── pValues
+│           ├── nucChange_pVal
+│           │   ├── muse
+│           │   ├── mutect
+│           │   ├── somaticsniper
+│           │   └── varscan2
+│           ├── TiTv_pVal
+│           │   ├── muse
+│           │   ├── mutect
+│           │   ├── somaticsniper
+│           │   └── varscan2
+│           └── total_mut_pval
+│               ├── muse
+│               ├── mutect
+│               ├── somaticsniper
+│               └── varscan2
+└── Scripts
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/Smoke/pValues/   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/pValues/nucChange_pVal   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/pValues/TiTv_pVal  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/pValues/total_mut_pVal     
+```
+ 
 
 <div id='languages'/>  
 
@@ -87,40 +115,3 @@ Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile
 
 ## Output
 #### This folder will contain all info generated as a result of Analysis\*.R files such as pValues and graphs
-
-```console
-Output
-└── Smoke
-    ├── Graphs
-    │   ├── nucChange_Graph
-    │   │   ├── muse
-    │   │   ├── mutect
-    │   │   ├── somaticsniper
-    │   │   └── varscan2
-    │   ├── TiTv_Graph
-    │   │   ├── muse
-    │   │   ├── mutect
-    │   │   ├── somaticsniper
-    │   │   └── varscan2
-    │   └── total_mut_Graph
-    │       ├── muse
-    │       ├── mutect
-    │       ├── somaticsniper
-    │       └── varscan2
-    └── pValues
-        ├── nucChange_pVal
-        │   ├── muse
-        │   ├── mutect
-        │   ├── somaticsniper
-        │   └── varscan2
-        ├── TiTv_pVal
-        │   ├── muse
-        │   ├── mutect
-        │   ├── somaticsniper
-        │   └── varscan2
-        └── total_mut_pval
-            ├── muse
-            ├── mutect
-            ├── somaticsniper
-            └── varscan2
-```
