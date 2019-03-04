@@ -2,12 +2,12 @@
 These scripts will download, manipulate, and analyse TCGA data obtained through the R package TCGAbiolinks
 
 ## Table of Contents
-1. [Directory Structure](#directory_structure)
-* Languages
-* Packages  
-* Scripts
-* Datasets
-* Output
+* [Directory Structure](#directory_structure)
+* [Languages](#languages)
+* [Packages](#packages)  
+* [Scripts](#Scripts)
+* [Datasets](#Datasets)
+* [Output](#Output)
 
 <div id='directory_structure'/>  
 
@@ -27,6 +27,8 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/pValues/TiTv_pVal  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/pValues/total_mut_pVal     
 
+<div id='languages'/>  
+
 ## Languages
 ```console
 $ python3 --version
@@ -43,6 +45,7 @@ GNU General Public License versions 2 or 3.
 For more information about these matters see
 http://www.gnu.org/licenses/.
 ```
+<div id='packages'/>  
 
 ## Packages  
 #### These packages need to be installed (R)
@@ -54,6 +57,7 @@ http://www.gnu.org/licenses/.
 ```console
 $ pip3 install --user pandas
 ```
+<div id='Scripts'/>  
 
 ## Scripts
 #### This folder contains all R scripts that will be used in this project
@@ -74,9 +78,12 @@ functions1.R - Script that creates functions used in Analysis1.R
 Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline only comparing smokers and nonsmokers
 
 
+<div id='Datasets'/>  
 
 ## Datasets
 #### This folder contains all flat files and extra data downloaded due to TCGAbiolinks from Download.R
+
+<div id='Output'/>  
 
 ## Output
 #### This folder will contain all info generated as a result of Analysis\*.R files such as pValues and graphs
