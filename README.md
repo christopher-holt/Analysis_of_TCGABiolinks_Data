@@ -29,6 +29,18 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 ```console
 $ python3 --version
 Python 3.6.7
+
+$ R --version
+R version 3.5.2 (2018-12-20) -- "Eggshell Igloo"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under the terms of the
+GNU General Public License versions 2 or 3.
+For more information about these matters see
+http://www.gnu.org/licenses/.
+
 ```
 
 ## Packages  
