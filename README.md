@@ -42,6 +42,72 @@ BiolinksAnalysis
 │   ├── STAD.csv
 │   └── STAD_select.csv
 ├── Output
+│   ├── Gender
+│   │   ├── Graphs
+│   │   │   ├── nucChange_Graph
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   ├── TiTv_Graph
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   └── total_mut_Graph
+│   │   │       ├── muse
+│   │   │       ├── mutect
+│   │   │       ├── somaticsniper
+│   │   │       └── varscan2
+│   │   └── pValues
+│   │       ├── nucChange_pVal
+│   │       │   ├── muse
+│   │       │   ├── mutect
+│   │       │   ├── somaticsniper
+│   │       │   └── varscan2
+│   │       ├── TiTv_pVal
+│   │       │   ├── muse
+│   │       │   ├── mutect
+│   │       │   ├── somaticsniper
+│   │       │   └── varscan2
+│   │       └── total_mut_pval
+│   │           ├── muse
+│   │           ├── mutect
+│   │           ├── somaticsniper
+│   │           └── varscan2
+│   ├── Race
+│   │   ├── Graphs
+│   │   │   ├── nucChange_Graph
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   ├── TiTv_Graph
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   └── total_mut_Graph
+│   │   │       ├── muse
+│   │   │       ├── mutect
+│   │   │       ├── somaticsniper
+│   │   │       └── varscan2
+│   │   └── pValues
+│   │       ├── nucChange_pVal
+│   │       │   ├── muse
+│   │       │   ├── mutect
+│   │       │   ├── somaticsniper
+│   │       │   └── varscan2
+│   │       ├── TiTv_pVal
+│   │       │   ├── muse
+│   │       │   ├── mutect
+│   │       │   ├── somaticsniper
+│   │       │   └── varscan2
+│   │       └── total_mut_pval
+│   │           ├── muse
+│   │           ├── mutect
+│   │           ├── somaticsniper
+│   │           └── varscan2
 │   └── Smoke
 │       ├── Graphs
 │       │   ├── nucChange_Graph
@@ -75,15 +141,18 @@ BiolinksAnalysis
 │               ├── mutect
 │               ├── somaticsniper
 │               └── varscan2
-│                   
 ├── README.md
 └── Scripts
     ├── Analysis1.R
+    ├── Analysis2.R
+    ├── Analysis3.R
     ├── Download.R
     ├── functions1.R
+    ├── functions2.R
+    ├── functions3.R
     ├── functions.R
     ├── functionsTEST.R
-    ├── select_col.py
+    └── select_col.py
 
 
 ```
@@ -138,6 +207,15 @@ functions1.R - Script that creates functions used in Analysis1.R
 
 Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline only comparing smokers and nonsmokers
 
+##### Race Data
+functions2.R - Script that creates functions used in Analysis2.R  
+
+Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr
+
+##### Gender Data
+functions3.R - Script that creates functions used in Analysis3.R  
+
+Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female
 
 <div id='Datasets'/>  
 
