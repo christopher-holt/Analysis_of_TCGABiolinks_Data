@@ -42,7 +42,7 @@ for (i in 1:length(Data_Names)){
       for(k in 1:length(valid_sites)){
         ## Subset the data into AfrAmr and EurAmr. These will be in a loop that separates cancer, pipeline, and location
         ## Set_1 are AfrAmr, Set_2 are EurAmr
-        Set_1 <- df %>% filter(race == "black or african-american", pipeline == pipelines[j], tissue_or_organ_of_origin == valid_sites[k])
+        Set_1 <- df %>% filter(race == "black or african american", pipeline == pipelines[j], tissue_or_organ_of_origin == valid_sites[k])
         Set_2 <- df %>% filter(race == "white", pipeline == pipelines[j], tissue_or_organ_of_origin == valid_sites[k])
         
         
