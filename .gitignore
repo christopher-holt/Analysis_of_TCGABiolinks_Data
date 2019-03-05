@@ -4,9 +4,13 @@ Datasets/
 
 Output/*
 !Output/Smoke/
+!Output/Race/
 
 Output/Smoke/*
 !Output/Smoke/pValues/
+
+Output/Race/*
+!Output/Race/pValues/
 
 
 GDCdata/

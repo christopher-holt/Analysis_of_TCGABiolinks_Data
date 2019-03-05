@@ -1,5 +1,5 @@
 ##-----------------------------------------------------------------------------------------------------------
-## This file will compare smoker vs nonsmoker data from 12 cancer datasets
+## This file will compare smoker vs nonsmoker data from 10 cancer datasets
 ## In this script, non smokers are defined as all participants who have NA for cigarettes per day and
 ## Smokers are all patients who have a value for cigrattes per day
 ##-----------------------------------------------------------------------------------------------------------
