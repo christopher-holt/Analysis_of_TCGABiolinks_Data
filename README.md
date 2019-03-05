@@ -12,7 +12,7 @@ These scripts will download, manipulate, and analyse TCGA data obtained through 
 <div id='directory_structure'/>  
 
 ## Directory Structure
-#### Datasets and Ouput/Smoke/Graphs have been ignored for space reasons
+#### Datasets/GDCdata/* has been ignored for space reasons
 ```console
 BiolinksAnalysis
 ├── BiolinksAnalysis.Rproj
