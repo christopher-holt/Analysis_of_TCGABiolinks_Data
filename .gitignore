@@ -1,14 +1,14 @@
 Datasets/
 
 !Output/
-
 Output/*
 !Output/Smoke/
-!Output/Race/
+
 
 Output/Smoke/*
 !Output/Smoke/pValues/
 
+!Output/Race/
 Output/Race/*
 !Output/Race/pValues/
 
