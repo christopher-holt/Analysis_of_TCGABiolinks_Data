@@ -1,6 +1,7 @@
 Datasets/
 
 !Output/
+
 Output/*
 !Output/Smoke/
 
@@ -11,6 +12,10 @@ Output/Smoke/*
 !Output/Race/
 Output/Race/*
 !Output/Race/pValues/
+
+!Output/Gender/
+Output/Gender/*
+!Output/Gender/pValues/
 
 
 GDCdata/
