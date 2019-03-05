@@ -58,6 +58,17 @@ smoke_sites <- function(Data){
   }
   return(new_site)
 }
+##-----------------------------------------------------------------------------------------------------------
+## This function will take a dataset, and return the number of specific nucleotide changes per person
+##-----------------------------------------------------------------------------------------------------------
+
+nucChange_Sum <- function(df, status, Initial){
+  df_1 <- df %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
+  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$nucChange)) %>% mutate_if(is.factor,as.character)
+  df_1_table$status <- paste0(length(unique(df_1_table$Var1)), status)
+  df_1_table$abbr <- paste0(Initial)
+  return(df_1_table)
+}
 
 ##-----------------------------------------------------------------------------------------------------------
 ## This function will take a dataset, count the number of TiTv per person
