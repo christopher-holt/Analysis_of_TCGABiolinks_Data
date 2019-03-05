@@ -226,3 +226,13 @@ Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile
 
 ## Output
 #### This folder will contain all info generated as a result of Analysis\*.R files such as pValues and graphs
+
+#### The data was calculated for each group, for each cancer, for each valid site in each cancer, and for each somatic varaint pipeline (muse, mutect, somaticsniper, varscan2)  
+nucChange_Graphs contains boxplots showing the different nucleotide changes (eg A > G) and their frequency distrubution per person in the population  
+nucChange_pVal shows the pValue, calculated by wilcox.text, between each respective population for each nucleotide change
+
+TiTv_Graphs shows the frequency distribution of Transitions and Transversions per person between two populations  
+TiTv_pVal shows the pValue between each population for Transitions and Transversions
+
+total_mut_Graphs shows the distribution of the total number of somatic point mutations per person in each population  
+total_mut_pVal shows the pValue between each group for the distribution of somatic point mutations  
