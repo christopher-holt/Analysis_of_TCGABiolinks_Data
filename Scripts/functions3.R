@@ -49,8 +49,8 @@ gender_sites <- function(Data){
                                                          "In_Frame_Ins", "Indel"), 
                            tissue_or_organ_of_origin == pot_sites[i])
     
-    df_1 <- df %>% filter(race == "male")
-    df_2 <- df %>% filter(race == "female")
+    df_1 <- df %>% filter(gender == "male")
+    df_2 <- df %>% filter(gender == "female")
     
     if((nrow(df_1) > 0 & nrow(df_2) > 0) & ((length(unique(df_1$tumor_barcode)) >= 3 & length(unique(df_2$tumor_barcode)) >= 3))){
       new_site <- c(new_site, pot_sites[i])
