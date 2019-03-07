@@ -143,8 +143,11 @@ BiolinksAnalysis
 │               └── varscan2
 ├── README.md
 └── Scripts
+    ├── Analysis1_1.R
     ├── Analysis1.R
+    ├── Analysis2_1.R
     ├── Analysis2.R
+    ├── Analysis3_1.R
     ├── Analysis3.R
     ├── Download.R
     ├── functions1.R
@@ -152,6 +155,7 @@ BiolinksAnalysis
     ├── functions3.R
     ├── functions.R
     └── select_col.py
+
 
 
 ```
@@ -204,17 +208,23 @@ select_col.py - This a python script that will take the tab-delimated flat files
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
 
-Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline only comparing smokers and nonsmokers
+Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline only comparing smokers and nonsmokers  
+
+Analysis1_1.R - This will perform the same action as Analysis1.R except that it will look at the whole cancer, not specific sites
 
 ##### Race Data
 functions2.R - Script that creates functions used in Analysis2.R  
 
-Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr
+Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr  
+
+Analysis2_1.R - This will perform the same action as Analysis2.R except that it will look at the whole cancer, not specific sites
 
 ##### Gender Data
 functions3.R - Script that creates functions used in Analysis3.R  
 
-Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female
+Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female  
+
+Analysis3_1.R - This will perform the same action as Analysis3.R except that it will look at the whole cancer, not specific sites
 
 <div id='Datasets'/>  
 
