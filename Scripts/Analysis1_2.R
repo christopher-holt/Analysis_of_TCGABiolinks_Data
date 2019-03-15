@@ -46,19 +46,20 @@ for (i in 1:length(Data_Names)){
     Set_2 <- df %>% filter(!(is.na(cigarettes_per_day)), pipeline == pipelines[j])
     
     
-    genes_1 <- gene_count(Set_1)
-    genes_2 <- gene_count(Set_2)
-    
-    
+    genes_1 <- as.data.frame(gene_count(Set_1))
+    genes_2 <- as.data.frame(gene_count(Set_2))
     
     same_genes <- as.data.frame(intersect(genes_1$hugo_symbol, genes_2$hugo_symbol)) %>% 
-                rename("genes" = `intersect(genes_1$hugo_symbol, genes_2$hugo_symbol)`) %>% mutate_if(is.factor, as.character)
+                rename("hugo_symbol" = `intersect(genes_1$hugo_symbol, genes_2$hugo_symbol)`) %>% mutate_if(is.factor, as.character)
     
     diff_1 <- diff_genes(genes_1, genes_2) ## Genes in genes_1 that are not in genes_2
     diff_2 <-diff_genes(genes_2, genes_1) ## Genes in genes_2 that are not in genes_1
     
+    diff_1$n <- as.integer(0)
+    diff_2$n <- as.integer(0)
     
-    
+    genes_1 <- rbind(genes_1, diff_2)
+    genes_2 <- rbind(genes_2, diff_1)
 
   }
 }

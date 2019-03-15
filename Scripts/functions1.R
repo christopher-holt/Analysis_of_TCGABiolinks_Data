@@ -103,7 +103,7 @@ gene_count <- function(df){
 
 diff_genes <- function(df, df2){
   df3 <- as.data.frame(setdiff(df$hugo_symbol, df2$hugo_symbol)) %>%
-    rename("genes" = `setdiff(df$hugo_symbol, df2$hugo_symbol)`) %>% mutate_if(is.factor, as.character)
+    rename("hugo_symbol" = `setdiff(df$hugo_symbol, df2$hugo_symbol)`) %>% mutate_if(is.factor, as.character)
   
   return(df3)
 }
