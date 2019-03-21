@@ -91,8 +91,7 @@ TiTv_count <- function(df, status, Initial){
 
 gene_count <- function(df){
   new_df <- df %>% select(tumor_barcode,hugo_symbol) %>% 
-    group_by(hugo_symbol) %>% unique() %>% count() %>% filter(n >= 1)
-  
+    group_by(tumor_barcode, hugo_symbol) %>% count()
   
   return(new_df)
 }
