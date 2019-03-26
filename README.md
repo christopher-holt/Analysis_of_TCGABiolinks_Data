@@ -233,10 +233,10 @@ http://www.gnu.org/licenses/.
 ```
 #### These packages need to be installed (python3) 
 ```bash
-chris-holt@chrisholt$ pip3 install --user pandas
-chris-holt@chrisholt$ pip3 install --user scipy
-chris-holt@chrisholt$ pip3 install --user os
-chris-holt@chrisholt$ pip3 install --user glob
+$ pip3 install --user pandas
+$ pip3 install --user scipy
+$ pip3 install --user os
+$ pip3 install --user glob
 ```
 <div id='Scripts'/>  
 
