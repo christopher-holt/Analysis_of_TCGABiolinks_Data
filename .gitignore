@@ -9,10 +9,7 @@ Output/*
 Output/Smoke/*
 !Output/Smoke/pValues/
 
-Output/Smoke/*
 !Output/Smoke/Age/
-Output/Smoke/Age/*
-!Output/Smoke/Age/files
 
 
 
@@ -25,11 +22,8 @@ Output/Smoke/Age/*
 !Output/Race/
 Output/Race/*
 !Output/Race/pValues/
-
-Output/Race/*
 !Output/Race/Age/
-Output/Race/Age/*
-!Output/Race/Age/files
+
 
 !Output/Race/Genes_Pvalues/
 
@@ -40,10 +34,8 @@ Output/Race/Age/*
 Output/Gender/*
 !Output/Gender/pValues/
 
-Output/Gender/*
 !Output/Gender/Age/
-Output/Gender/Age/*
-!Output/Gender/Age/files
+
 
 !Output/Gender/Genes_Pvalues/
 
