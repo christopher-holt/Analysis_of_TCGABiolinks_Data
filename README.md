@@ -204,6 +204,8 @@ directory
 
 select_col.py - This a python script that will take the tab-delimated flat files created by Download.R and will extract important columns to make smaller, more efficient files (~/BiolinksAnalysis/Datasets/\*\_select.csv)  
 
+Wilcox_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R
+
 
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
@@ -212,6 +214,12 @@ Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile
 
 Analysis1_1.R - This will perform the same action as Analysis1.R except that it will look at the whole cancer, not specific sites
 
+Analysis1_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
+
+Analysis1_3.R - This script will perform the same analysis as Analysis1_1.R except that it will focus only on stage I cancers
+
+Analysis1_4.R - This script will calculate the number of mutations for each age and look for a relation
+
 ##### Race Data
 functions2.R - Script that creates functions used in Analysis2.R  
 
@@ -219,12 +227,16 @@ Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile
 
 Analysis2_1.R - This will perform the same action as Analysis2.R except that it will look at the whole cancer, not specific sites
 
+Analysis2_4.R - This script will calculate the number of mutations for each age and look for a relation
+
 ##### Gender Data
 functions3.R - Script that creates functions used in Analysis3.R  
 
 Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female  
 
 Analysis3_1.R - This will perform the same action as Analysis3.R except that it will look at the whole cancer, not specific sites
+
+Analysis3_4.R - This script will calculate the number of mutations for each age and look for a relation
 
 <div id='Datasets'/>  
 
