@@ -1,3 +1,10 @@
+## Author: Chris Holt
+## Purpose: Compares nucleotide change frequencies, total amount of somatic point mutations, 
+## and Transition vs Transversion Frequencies between males and females at specific
+## Cancer sites
+## Date Created: Feb/2019
+## Date of Last Update: 26/Mar/2019
+
 ##-----------------------------------------------------------------------------------------------------------
 ## This file will compare male vs female data from 10 cancer datasets
 ##-----------------------------------------------------------------------------------------------------------

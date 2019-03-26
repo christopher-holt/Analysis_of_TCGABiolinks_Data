@@ -1,8 +1,11 @@
+## Author: Chris Holt
+## Purpose: Looks at mutational burden and age between males and females
+## Date Created: 25/Mar/2019
+## Date of Last Update: 26/Mar/2019
+
 ##-----------------------------------------------------------------------------------------------------------
 ## This file will compare male and female data from 10 cancer datasets
-## In this script, non smokers are defined as all participants who have NA for cigarettes per day and
-## Smokers are all patients who have a value for cigrattes per day. This script will look at 
-## the mutational burden compared to age
+## This script will look at the mutational burden compared to age
 ##-----------------------------------------------------------------------------------------------------------
 
 ##-----------------------------------------------------------------------------------------------------------

@@ -1,6 +1,11 @@
+## Author: Chris Holt
+## Purpose: Compares gene frequencies between AfrAmr and EurAmr
+## Date Created: 25/Mar/2019
+## Date of Last Update: 26/Mar/2019
+
 ##-------------------------------------------------------------------------------------
 ## This script will find the frequencies of genes w/ somatic, point mutations 
-## between smokers and non smokers and calculate pValues between AfrAmr and EurAmr
+## between AfrAmr and EurAmr and calculate pValues between AfrAmr and EurAmr
 ##-------------------------------------------------------------------------------------
 
 ##-----------------------------------------------------------------------------------------------------------

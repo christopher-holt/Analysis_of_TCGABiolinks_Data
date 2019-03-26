@@ -1,13 +1,25 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+"""
+@author: Chris Holt
+
+This file will take flat files containing frequencies of genes and calculate the pValues using mannwhitneyu comparison 
+
+Date Created: 15/Mar/2019
+
+Date of Last Update: 26/Mar/2019
+
+"""
+
+## Imports
 import pandas
 from scipy import stats
 import os
 import glob
 
 
-
+## Function that will calculate pValues 
 def pvalues(string):
     os.chdir("/home/chris-holt/Research/BiolinksAnalysis/Output/%s/Genes_Pvalues" %(str(string)))
     filenames = glob.glob("*.tsv")

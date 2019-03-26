@@ -1,6 +1,10 @@
+## Author: Chris Holt
+## Purpose: Compares gene frequencies between males and females
+## Date Created: 13/Mar/2019
+## Date of Last Update: 26/Mar/2019
 ##-------------------------------------------------------------------------------------
 ## This script will find the frequencies of genes w/ somatic, point mutations 
-## between smokers and non smokers and calculate pValues between AfrAmr and EurAmr
+## between males and females and calculate pValues between males and females
 ##-------------------------------------------------------------------------------------
 
 ##-----------------------------------------------------------------------------------------------------------

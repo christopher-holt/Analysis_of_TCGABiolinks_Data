@@ -1,3 +1,10 @@
+## Author: Chris Holt
+## Purpose: Compares nucleotide change frequencies, total amount of somatic point mutations, 
+## and Transition vs Transversion Frequencies between non-smokers and smokers at specific
+## Cancer sites
+## Date Created: Feb/2019
+## Date of Last Update: 26/Mar/2019
+
 ##-----------------------------------------------------------------------------------------------------------
 ## This file will compare smoker vs nonsmoker data from 10 cancer datasets
 ## In this script, non smokers are defined as all participants who have NA for cigarettes per day and

@@ -1,3 +1,8 @@
+## Author: Chris Holt
+## Purpose: Same purpose as Analysis1_1.R except looks at stage 1 cancers 
+## Date Created: 12/Mar/2019
+## Date of Last Update: 26/Mar/2019
+
 ##-------------------------------------------------------------------------------------
 ## This script will find the mutations in early stage cancers. Will perform
 ## Same analysis as Analysis1_1.R
