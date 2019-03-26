@@ -1,9 +1,16 @@
 #!/usr/bin/python3
 """
+@author: Chris Holt
+
 This file will take flat files downloaded by Download.R and will extract important columns to create smaller, useable files
 to analyse
 
+Date Created: Feb/2019
+
+Date of Last Update: 26/Mar/2019
+
 """
+
 
 ##-----------------------------------------------------------------------------------------------------------
 ## Imports

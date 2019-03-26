@@ -1,5 +1,9 @@
+## Author: Chris Holt
+## Purpose: Generate all functions used in analysis of gender data
+## Date Created: Feb/2019
+## Date of Last Update: 26/Mar/2019
 ##-----------------------------------------------------------------------------------------------------------
-## This file will generate all functions used in specifically Analysis1.R
+## This file will generate all functions used in specifically Analysis3.R
 ##-----------------------------------------------------------------------------------------------------------
 
 
