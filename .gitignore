@@ -9,9 +9,15 @@ Output/*
 Output/Smoke/*
 !Output/Smoke/pValues/
 
+Output/Smoke/*
 !Output/Smoke/Age/
 Output/Smoke/Age/*
 !Output/Smoke/Age/files
+
+
+
+
+
 
 !Output/Smoke/Genes_Pvalues/
 
