@@ -26,21 +26,28 @@ Output/Smoke/Age/*
 Output/Race/*
 !Output/Race/pValues/
 
-!Output/Race/Genes_Pvalues/
-
+Output/Race/*
 !Output/Race/Age/
 Output/Race/Age/*
 !Output/Race/Age/files
+
+!Output/Race/Genes_Pvalues/
+
+
+
 
 !Output/Gender/
 Output/Gender/*
 !Output/Gender/pValues/
 
-!Output/Gender/Genes_Pvalues/
-
+Output/Gender/*
 !Output/Gender/Age/
 Output/Gender/Age/*
 !Output/Gender/Age/files
+
+!Output/Gender/Genes_Pvalues/
+
+
 
 
 
