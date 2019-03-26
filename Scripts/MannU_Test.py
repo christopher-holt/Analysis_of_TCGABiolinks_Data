@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # coding: utf-8
 
 """
@@ -20,9 +20,9 @@ import glob
 
 
 ## Function that will calculate pValues 
-def pvalues(string):
+def pvalues(string, disease):
     os.chdir("/home/chris-holt/Research/BiolinksAnalysis/Output/%s/Genes_Pvalues" %(str(string)))
-    filenames = glob.glob("*[!_FINAL_PVALUES]*.tsv")
+    filenames = glob.glob("*_%s*[!_FINAL_PVALUES]*.tsv" % disease)
     for file in range(len(filenames)):
         df = pandas.read_table(filenames[file], sep = "\t", low_memory = False)
         genes = df["hugo_symbol"].unique()
@@ -39,14 +39,35 @@ def pvalues(string):
             except ValueError:
                 pass
     
-    name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "FINAL_PVALUES")
-    final_df.to_csv(name, sep = "\t")
-    print(name + " download complete")
+        name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "_FINAL_PVALUES")
+        final_df.to_csv(name, sep = "\t")
+        print(name + " download complete")
     
  
 def main():
-    pvalues("Smoke")
-    #pvalues("Race")
-    #pvalues("Gender")
+    
+    ## I have broken down the process to be easier on the computer processor
+    ## Enter in a valid directory and cancer cohort
+    group = str(input("Please enter a directory (Smoke/Race/Gender): " ))
+    Cancer = str(input("Please enter a Cancer: "))
+    pvalues(group, Cancer)
+    
+    ## Valid directories:
+        ## Smoke
+        ## Race
+        ## Gender
+    ## Valid Cohorts:
+        ## BLCA 
+        ## HNSC
+        ## KICH
+        ## KIRP
+        ## LUAD
+        ## LUSC
+        ## PAAD
+    ## (Race/Gender Only)
+        ## KIRC, LIHC, STAD
+
+## Completed combos(Smoke:BLCA)
+
 
 main()
