@@ -10,10 +10,7 @@ Output/Smoke/*
 !Output/Smoke/pValues/
 
 !Output/Smoke/Age/
-
-
-
-
+Output/Smoke/Age/Graphs
 
 
 !Output/Smoke/Genes_Pvalues/
@@ -23,6 +20,7 @@ Output/Smoke/*
 Output/Race/*
 !Output/Race/pValues/
 !Output/Race/Age/
+Output/Race/Age/Graphs
 
 
 !Output/Race/Genes_Pvalues/
@@ -35,7 +33,7 @@ Output/Gender/*
 !Output/Gender/pValues/
 
 !Output/Gender/Age/
-
+Output/Gender/Age/Graphs
 
 !Output/Gender/Genes_Pvalues/
 
