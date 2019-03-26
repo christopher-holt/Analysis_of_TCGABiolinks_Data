@@ -1,6 +1,6 @@
 ##-------------------------------------------------------------------------------------
 ## This script will find the frequencies of genes w/ somatic, point mutations 
-## between smokers and non smokers
+## between smokers and non smokers and calculate pValues
 ##-------------------------------------------------------------------------------------
 
 ##-----------------------------------------------------------------------------------------------------------
@@ -22,8 +22,7 @@ source("Scripts/functions1.R")
 ##-----------------------------------------------------------------------------------------------------------
 Data_Names <- c("BLCA", "HNSC")
 Data_Names <- c("KICH", "LUAD")
-Data_Names <- c("LUSC")
-Data_Names <- c("PAAD")
+Data_Names <- c("LUSC", "PAAD")
 Data_Names <- c("KIRP")
 
 pipelines <- c("muse", "mutect", "somaticsniper", "varscan2")
