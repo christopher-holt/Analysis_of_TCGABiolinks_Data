@@ -309,8 +309,8 @@ TiTv_pVal shows the pValue between each population for Transitions and Transvers
 total_mut_Graphs shows the distribution of the total number of somatic point mutations per person in each population  
 total_mut_pVal shows the pValue between each group for the distribution of somatic point mutations  
 
-Age contains graphs showing the relation between number of mutations and age. 
-Age/Files contains flat files with the rsquared values of the linear regression line
+Age contains graphs showing the relation between number of mutations and age.   
+Age/Files contains flat files with the rsquared values of the linear regression line  
 Age/Graphs contains the .jpg files of the graphs
 
 Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (*_FINAL_PVALUES)
