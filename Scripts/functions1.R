@@ -85,27 +85,7 @@ TiTv_count <- function(df, status, Initial){
   return(df_sum)
   }
 
-##-----------------------------------------------------------------------------------------------------------
-## This function will take a dataset and determine how many people have >= 1 mutation in that gene
-##-----------------------------------------------------------------------------------------------------------
 
-gene_count <- function(df){
-  new_df <- df %>% select(tumor_barcode,hugo_symbol) %>% 
-    group_by(tumor_barcode, hugo_symbol) %>% count()
-  
-  return(new_df)
-}
-
-##-----------------------------------------------------------------------------------------------------------
-## This function will take two datasets and identify the different genes between the two
-##-----------------------------------------------------------------------------------------------------------
-
-diff_genes <- function(df, df2){
-  df3 <- as.data.frame(setdiff(df$hugo_symbol, df2$hugo_symbol)) %>%
-    rename("hugo_symbol" = `setdiff(df$hugo_symbol, df2$hugo_symbol)`) %>% mutate_if(is.factor, as.character)
-  
-  return(df3)
-}
 
 ##-----------------------------------------------------------------------------------------------------------
 ## End of Script
