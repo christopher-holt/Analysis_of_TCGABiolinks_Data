@@ -252,7 +252,7 @@ directory
 
 select_col.py - This a python script that will take the tab-delimated flat files created by Download.R and will extract important columns to make smaller, more efficient files (~/BiolinksAnalysis/Datasets/\*\_select.csv)  
 
-Wilcox_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R
+MannU.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R
 
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
