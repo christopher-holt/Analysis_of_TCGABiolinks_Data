@@ -43,18 +43,18 @@ BiolinksAnalysis
 │   └── STAD_select.csv
 ├── Output
 │   ├── Gender
-│       ├── Age
-│       │   ├── files
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   └── Graphs
-│       │       ├── muse
-│       │       ├── mutect
-│       │       ├── somaticsniper
-│       │       └── varscan2
-│       ├── Genes_Pvalues
+│   │   ├── Age
+│   │   │   ├── files
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   └── Graphs
+│   │   │       ├── muse
+│   │   │       ├── mutect
+│   │   │       ├── somaticsniper
+│   │   │       └── varscan2
+│   │   ├── Genes_Pvalues
 │   │   ├── Graphs
 │   │   │   ├── nucChange_Graph
 │   │   │   │   ├── muse
@@ -88,18 +88,18 @@ BiolinksAnalysis
 │   │           ├── somaticsniper
 │   │           └── varscan2
 │   ├── Race
-│       ├── Age
-│       │   ├── files
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   └── Graphs
-│       │       ├── muse
-│       │       ├── mutect
-│       │       ├── somaticsniper
-│       │       └── varscan2
-│       ├── Genes_Pvalues
+│   │   ├── Age
+│   │   │   ├── files
+│   │   │   │   ├── muse
+│   │   │   │   ├── mutect
+│   │   │   │   ├── somaticsniper
+│   │   │   │   └── varscan2
+│   │   │   └── Graphs
+│   │   │       ├── muse
+│   │   │       ├── mutect
+│   │   │       ├── somaticsniper
+│   │   │       └── varscan2
+│   │   ├── Genes_Pvalues
 │   │   ├── Graphs
 │   │   │   ├── nucChange_Graph
 │   │   │   │   ├── muse
