@@ -67,6 +67,8 @@ def main():
     ## (Race/Gender Only)
         ## KIRC, LIHC, STAD
 
+## Takes ~15min to run for one combination
+
 ## Completed combos(Smoke:BLCA)
 
 
