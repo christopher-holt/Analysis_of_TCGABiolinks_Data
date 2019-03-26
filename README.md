@@ -232,11 +232,11 @@ http://www.gnu.org/licenses/.
 > BiocManager::install("TCGAbiolinks")
 ```
 #### These packages need to be installed (python3) 
-```console
-$ pip3 install --user pandas
-$ pip3 install --user scipy
-$ pip3 install --user os
-$ pip3 install --user glob
+```bash
+chris-holt@chrisholt$ pip3 install --user pandas
+chris-holt@chrisholt$ pip3 install --user scipy
+chris-holt@chrisholt$ pip3 install --user os
+chris-holt@chrisholt$ pip3 install --user glob
 ```
 <div id='Scripts'/>  
 
