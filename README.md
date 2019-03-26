@@ -228,12 +228,15 @@ http://www.gnu.org/licenses/.
 ## Packages  
 #### These packages need to be installed (R)
 ```r
-> install.packages(c("tidyverse", "BiocManager", "magrittr"))
+> install.packages(c("tidyverse", "BiocManager"))
 > BiocManager::install("TCGAbiolinks")
 ```
 #### These packages need to be installed (python3) 
 ```console
 $ pip3 install --user pandas
+$ pip3 install --user scipy
+$ pip3 install --user os
+$ pip3 install --user glob
 ```
 <div id='Scripts'/>  
 
