@@ -9,13 +9,33 @@ Output/*
 Output/Smoke/*
 !Output/Smoke/pValues/
 
+!Output/Smoke/Age/
+Output/Smoke/Age/*
+!Output/Smoke/Age/files
+
+!Output/Smoke/Genes_Pvalues/
+
+
 !Output/Race/
 Output/Race/*
 !Output/Race/pValues/
 
+!Output/Race/Genes_Pvalues/
+
+!Output/Race/Age/
+Output/Race/Age/*
+!Output/Race/Age/files
+
 !Output/Gender/
 Output/Gender/*
 !Output/Gender/pValues/
+
+!Output/Gender/Genes_Pvalues/
+
+!Output/Gender/Age/
+Output/Gender/Age/*
+!Output/Gender/Age/files
+
 
 
 GDCdata/
