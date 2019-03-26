@@ -252,7 +252,7 @@ directory
 
 select_col.py - This a python script that will take the tab-delimated flat files created by Download.R and will extract important columns to make smaller, more efficient files (~/BiolinksAnalysis/Datasets/\*\_select.csv)  
 
-MannU_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R
+MannU_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R. For processing reasons, you must specify the individual comparison directory (Smoke/Race/Gender) and then a valid cancer cohort within that directory (more info in file)
 
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
@@ -272,7 +272,9 @@ functions2.R - Script that creates functions used in Analysis2.R
 
 Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr  
 
-Analysis2_1.R - This will perform the same action as Analysis2.R except that it will look at the whole cancer, not specific sites
+Analysis2_1.R - This will perform the same action as Analysis2.R except that it will look at the whole cancer, not specific sites\
+
+Analysis2_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
 
 Analysis2_4.R - This script will calculate the number of mutations for each age and look for a relation
 
@@ -282,6 +284,8 @@ functions3.R - Script that creates functions used in Analysis3.R
 Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female  
 
 Analysis3_1.R - This will perform the same action as Analysis3.R except that it will look at the whole cancer, not specific sites
+
+Analysis3_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
 
 Analysis3_4.R - This script will calculate the number of mutations for each age and look for a relation
 
