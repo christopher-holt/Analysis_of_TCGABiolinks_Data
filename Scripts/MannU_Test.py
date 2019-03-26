@@ -22,7 +22,7 @@ import glob
 ## Function that will calculate pValues 
 def pvalues(string):
     os.chdir("/home/chris-holt/Research/BiolinksAnalysis/Output/%s/Genes_Pvalues" %(str(string)))
-    filenames = glob.glob("*.tsv")
+    filenames = glob.glob("*[!_FINAL_PVALUES]*.tsv")
     for file in range(len(filenames)):
         df = pandas.read_table(filenames[file], sep = "\t", low_memory = False)
         genes = df["hugo_symbol"].unique()
@@ -37,7 +37,7 @@ def pvalues(string):
                 b = pandas.DataFrame(data, columns = ["gene","pvalue"])
                 final_df = pandas.concat([final_df, b])
             except ValueError:
-                continue
+                pass
     
     name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "FINAL_PVALUES")
     final_df.to_csv(name, sep = "\t")
@@ -46,7 +46,7 @@ def pvalues(string):
  
 def main():
     pvalues("Smoke")
-    pvalues("Race")
-    pvalues("Gender")
+    #pvalues("Race")
+    #pvalues("Gender")
 
 main()

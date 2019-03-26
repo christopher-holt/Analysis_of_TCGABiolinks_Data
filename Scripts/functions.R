@@ -161,7 +161,8 @@ summary_data <- function(Data){
 }
 
 ##-----------------------------------------------------------------------------------------------------------
-## This function will take a dataset and determine how many people have >= 1 mutation in that gene
+## This function will take a dataset and, for each unique person, count the number of times a specific genes
+## appears
 ##-----------------------------------------------------------------------------------------------------------
 
 gene_count <- function(df){
