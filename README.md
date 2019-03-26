@@ -43,6 +43,18 @@ BiolinksAnalysis
 │   └── STAD_select.csv
 ├── Output
 │   ├── Gender
+│       ├── Age
+│       │   ├── files
+│       │   │   ├── muse
+│       │   │   ├── mutect
+│       │   │   ├── somaticsniper
+│       │   │   └── varscan2
+│       │   └── Graphs
+│       │       ├── muse
+│       │       ├── mutect
+│       │       ├── somaticsniper
+│       │       └── varscan2
+│       ├── Genes_Pvalues
 │   │   ├── Graphs
 │   │   │   ├── nucChange_Graph
 │   │   │   │   ├── muse
@@ -76,6 +88,18 @@ BiolinksAnalysis
 │   │           ├── somaticsniper
 │   │           └── varscan2
 │   ├── Race
+│       ├── Age
+│       │   ├── files
+│       │   │   ├── muse
+│       │   │   ├── mutect
+│       │   │   ├── somaticsniper
+│       │   │   └── varscan2
+│       │   └── Graphs
+│       │       ├── muse
+│       │       ├── mutect
+│       │       ├── somaticsniper
+│       │       └── varscan2
+│       ├── Genes_Pvalues
 │   │   ├── Graphs
 │   │   │   ├── nucChange_Graph
 │   │   │   │   ├── muse
@@ -109,6 +133,18 @@ BiolinksAnalysis
 │   │           ├── somaticsniper
 │   │           └── varscan2
 │   └── Smoke
+│       ├── Age
+│       │   ├── files
+│       │   │   ├── muse
+│       │   │   ├── mutect
+│       │   │   ├── somaticsniper
+│       │   │   └── varscan2
+│       │   └── Graphs
+│       │       ├── muse
+│       │       ├── mutect
+│       │       ├── somaticsniper
+│       │       └── varscan2
+│       ├── Genes_Pvalues
 │       ├── Graphs
 │       │   ├── nucChange_Graph
 │       │   │   ├── muse
@@ -144,17 +180,26 @@ BiolinksAnalysis
 ├── README.md
 └── Scripts
     ├── Analysis1_1.R
+    ├── Analysis1_2.R
+    ├── Analysis1_3.R
+    ├── Analysis1_4.R
     ├── Analysis1.R
     ├── Analysis2_1.R
+    ├── Analysis2_2.R
+    ├── Analysis2_4.R
     ├── Analysis2.R
     ├── Analysis3_1.R
+    ├── Analysis3_2.R
+    ├── Analysis3_4.R
     ├── Analysis3.R
     ├── Download.R
     ├── functions1.R
     ├── functions2.R
     ├── functions3.R
     ├── functions.R
-    └── select_col.py
+    ├── select_col.py
+    └── Wilcox_Test.py
+
 
 
 
@@ -205,7 +250,6 @@ directory
 select_col.py - This a python script that will take the tab-delimated flat files created by Download.R and will extract important columns to make smaller, more efficient files (~/BiolinksAnalysis/Datasets/\*\_select.csv)  
 
 Wilcox_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R
-
 
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
