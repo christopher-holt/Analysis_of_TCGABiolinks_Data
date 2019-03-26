@@ -51,8 +51,9 @@ for (i in 1:length(Data_Names)){
     
     Set_1_people <- length(unique(Set_1$tumor_barcode))
     Set_2_people <- length(unique(Set_2$tumor_barcode))
- 
-    genes_1 <- as.data.frame(gene_count(Set_1))
+    
+    ## for each person, count the number of times a gene is mutated
+    genes_1 <- as.data.frame(gene_count(Set_1)) 
     genes_2 <- as.data.frame(gene_count(Set_2))
     
     same_genes <- as.data.frame(intersect(genes_1$hugo_symbol, genes_2$hugo_symbol)) %>% 
@@ -64,7 +65,8 @@ for (i in 1:length(Data_Names)){
     diff_1$n <- as.integer(0)
     diff_2$n <- as.integer(0)
     
-    num_people_1 <- genes_1 %>% select(hugo_symbol, tumor_barcode) %>% group_by(hugo_symbol) %>% count() ## number of people who have a mutation in that gene
+    ## number of people who have a mutation in that gene
+    num_people_1 <- genes_1 %>% select(hugo_symbol, tumor_barcode) %>% group_by(hugo_symbol) %>% count() 
     num_people_2 <- genes_2 %>% select(hugo_symbol, tumor_barcode) %>% group_by(hugo_symbol) %>% count()
     
     genes_1 <- genes_1 %>% select(hugo_symbol, n)
@@ -72,10 +74,6 @@ for (i in 1:length(Data_Names)){
     
     genes_1 <- rbind(genes_1, diff_2)
     genes_2 <- rbind(genes_2, diff_1)
-    
-    #num_same_genes <- nrow(same_genes)
-    #num_1_genes <- genes_1 %>% filter(n > 0) %>% nrow()
-    #num_2_genes <- genes_2 %>% filter(n > 0) %>% nrow()
     
     
     genes_1$status <- "NS"
@@ -86,7 +84,7 @@ for (i in 1:length(Data_Names)){
     genes_1$n.y[is.na(genes_1$n.y)] <- 0
     genes_2$n.y[is.na(genes_2$n.y)] <- 0
     
-    ## n.x is the number of mutations person A has in gene
+    ## n.x is the number of mutations a specific person has for gene
     ## n.y is the number of people in the whole population who have >=1 mutation in that gene
     
     genes_1 <- genes_1 %>% group_by(hugo_symbol) %>% mutate(perc = (n.x/n.y)*100)
