@@ -22,6 +22,9 @@ import os
 import glob
 import datetime
 
+now = datetime.datetime.now()
+now.strftime("%d/%B/%y")
+
 
 ## Function that will calculate pValues 
 def pvalues(string, pipeline):
