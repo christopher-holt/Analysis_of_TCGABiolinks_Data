@@ -6,9 +6,11 @@
 
 This file will take flat files containing frequencies of genes and calculate the pValues using mannwhitneyu comparison 
 
+
+
 Date Created: 15/Mar/2019
 
-Date of Last Update: 27/Mar/2019
+Date of Last Update: """ + now.strftime("%d/%B/%y") + """
 
 """
 
@@ -18,6 +20,7 @@ import time
 from scipy import stats
 import os
 import glob
+import datetime
 
 
 ## Function that will calculate pValues 
@@ -53,8 +56,7 @@ def main():
     
     ## I have broken down the process to be easier on the computer processor
 
-    ## initially looking at somatic sniper pipelines 
-
+## somatic sniper pipelines
  #   pvalues("Smoke", "somaticsniper")
  #   pvalues("Race", "somaticsniper")
  #   pvalues("Gender", "somaticsniper")
@@ -71,7 +73,6 @@ def main():
   #  pvalues("Race", "mutect")
   #  pvalues("Gender", "mutect")
   
-  ## Have run the previous 3 pipelines. Need to run these 3
   ## varscan2
     #pvalues("Smoke", "varscan2")
   #  pvalues("Race", "varscan2")
