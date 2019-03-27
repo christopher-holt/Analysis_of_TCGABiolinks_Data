@@ -45,20 +45,36 @@ def pvalues(string, pipeline):
         name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "_FINAL_PVALUES")
         final_df.to_csv(name, sep = "\t")
         print(name + " download complete")
+        print("Files left to be analysed: " + str(len(filenames) - file - 1))
+        print("-----------------------------------------------------------")
         print(time.ctime())
  
 def main():
     
     ## I have broken down the process to be easier on the computer processor
-    ## Enter in a valid directory and cancer cohort
-#    group = str(input("Please enter a directory (Smoke/Race/Gender): " ))
-#    Cancer = str(input("Please enter a Cancer: "))
-#    pvalues(group, Cancer)
-    pvalues("Smoke", "somaticsniper")
-    pvalues("Race", "somaticsniper")
-    pvalues("Gender", "somaticsniper")
-    
+
     ## initially looking at somatic sniper pipelines 
 
+ #   pvalues("Smoke", "somaticsniper")
+ #   pvalues("Race", "somaticsniper")
+ #   pvalues("Gender", "somaticsniper")
+    
+    ## Muse pipeline
+    
+   # pvalues("Smoke", "muse")
+    #pvalues("Race", "muse")
+   # pvalues("Gender", "muse")
+  
+  ## Mutect
+  
+    #pvalues("Smoke", "mutect")
+  #  pvalues("Race", "mutect")
+    pvalues("Gender", "mutect")
+  
+  ## varscan2
+    #pvalues("Smoke", "varscan2")
+  #  pvalues("Race", "varscan2")
+  #  pvalues("Gender", "varscan2")
+    
 
 main()
