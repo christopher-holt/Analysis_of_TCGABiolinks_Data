@@ -74,7 +74,7 @@ def main():
   ## Have run the previous 3 pipelines. Need to run these 3
   ## varscan2
     #pvalues("Smoke", "varscan2")
-  #  pvalues("Race", "varscan2")
+    pvalues("Race", "varscan2")
   #  pvalues("Gender", "varscan2")
     
 
