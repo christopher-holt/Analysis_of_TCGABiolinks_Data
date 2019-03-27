@@ -10,7 +10,7 @@ This file will take flat files containing frequencies of genes and calculate the
 
 Date Created: 15/Mar/2019
 
-Date of Last Update: """ + now.strftime("%d/%B/%y") + """
+Date of Last Update: """ + print(now.strftime("%d/%B/%y")) + """
 
 """
 
@@ -23,7 +23,7 @@ import glob
 import datetime
 
 now = datetime.datetime.now()
-now.strftime("%d/%B/%y")
+print(now.strftime("%d/%B/%y"))
 
 
 ## Function that will calculate pValues 
