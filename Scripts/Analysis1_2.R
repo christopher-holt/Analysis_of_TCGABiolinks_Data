@@ -52,7 +52,7 @@ for (i in 1:length(Data_Names)){
     Set_1_people <- length(unique(Set_1$tumor_barcode))
     Set_2_people <- length(unique(Set_2$tumor_barcode))
     
-    ## for each person, count the number of times a gene is mutated
+    ## for each person, count the number of times a gene is mutated per person
     genes_1 <- as.data.frame(gene_count(Set_1)) 
     genes_2 <- as.data.frame(gene_count(Set_2))
     
