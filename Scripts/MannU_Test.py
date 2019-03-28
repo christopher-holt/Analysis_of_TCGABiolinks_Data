@@ -64,14 +64,11 @@ def main():
     #pvalues("Gender", "somaticsniper")
     
     ## Muse pipeline
-    
    # pvalues("Smoke", "muse")
     #pvalues("Race", "muse")
-    
    # pvalues("Gender", "muse")
   
   ## Mutect
-  
   #  pvalues("Smoke", "mutect")
   
         ####### run the rest
@@ -82,10 +79,6 @@ def main():
   ## varscan2
     #pvalues("Smoke", "varscan2")
   #  pvalues("Race", "varscan2")
-  
-  
-  
-  ## Just need to run this command
    # pvalues("Gender", "varscan2")
     
 
