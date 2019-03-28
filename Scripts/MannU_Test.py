@@ -60,10 +60,11 @@ def main():
 ## somatic sniper pipelines
  #   pvalues("Smoke", "somaticsniper")
  
- ####### run the rest 
- #   pvalues("Race", "somaticsniper")
- #   pvalues("Gender", "somaticsniper")
+ 
+   # pvalues("Race", "somaticsniper")
+    #pvalues("Gender", "somaticsniper")
     
+    ####### run the rest
     ## Muse pipeline
     
    # pvalues("Smoke", "muse")
