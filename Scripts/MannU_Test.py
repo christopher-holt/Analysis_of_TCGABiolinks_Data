@@ -10,7 +10,7 @@ This file will take flat files containing frequencies of genes and calculate the
 
 Date Created: 15/Mar/2019
 
-Date of Last Update: 27/Mar/2019
+Date of Last Update: 28/Mar/2019
 
 """
 
@@ -57,24 +57,26 @@ def main():
     ## I have broken down the process to be easier on the computer processor
 
 ## Rerun bc forgot to include filetype in command, have to rerun
+    
 ## somatic sniper pipelines
  #   pvalues("Smoke", "somaticsniper")
- 
- 
-   # pvalues("Race", "somaticsniper")
+    # pvalues("Race", "somaticsniper")
     #pvalues("Gender", "somaticsniper")
     
-    ####### run the rest
     ## Muse pipeline
     
    # pvalues("Smoke", "muse")
     #pvalues("Race", "muse")
+    
    # pvalues("Gender", "muse")
   
   ## Mutect
   
-    #pvalues("Smoke", "mutect")
-  #  pvalues("Race", "mutect")
+  #  pvalues("Smoke", "mutect")
+  
+        ####### run the rest
+
+    #pvalues("Race", "mutect")
   #  pvalues("Gender", "mutect")
   
   ## varscan2
