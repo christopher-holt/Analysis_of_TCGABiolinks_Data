@@ -5,8 +5,8 @@
 @author: Chris Holt
 
 This file will take flat files containing frequencies of genes and calculate the pValues using mannwhitneyu comparison 
-
-
+I have broken down the process to be easier on the computer processor, so run
+only one or two lines in main() at a time
 
 Date Created: 15/Mar/2019
 
@@ -54,32 +54,26 @@ def pvalues(string, pipeline):
  
 def main():
     
-    ## I have broken down the process to be easier on the computer processor
-
-## Rerun bc forgot to include filetype in command, have to rerun
     
 ## somatic sniper pipelines
- #   pvalues("Smoke", "somaticsniper")
-    # pvalues("Race", "somaticsniper")
-    #pvalues("Gender", "somaticsniper")
+    pvalues("Smoke", "somaticsniper")
+    pvalues("Race", "somaticsniper")
+    pvalues("Gender", "somaticsniper")
     
-    ## Muse pipeline
-   # pvalues("Smoke", "muse")
-    #pvalues("Race", "muse")
-   # pvalues("Gender", "muse")
+## Muse pipeline
+    pvalues("Smoke", "muse")
+    pvalues("Race", "muse")
+    pvalues("Gender", "muse")
   
-  ## Mutect
-  #  pvalues("Smoke", "mutect")
-  
-        ####### run the rest
-
-    #pvalues("Race", "mutect")
-  #  pvalues("Gender", "mutect")
+## Mutect
+    pvalues("Smoke", "mutect")
+    pvalues("Race", "mutect")
+    pvalues("Gender", "mutect")
   
   ## varscan2
-    #pvalues("Smoke", "varscan2")
-  #  pvalues("Race", "varscan2")
-   # pvalues("Gender", "varscan2")
+    pvalues("Smoke", "varscan2")
+    pvalues("Race", "varscan2")
+    pvalues("Gender", "varscan2")
     
 
 main()
