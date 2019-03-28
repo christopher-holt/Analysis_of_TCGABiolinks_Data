@@ -45,7 +45,7 @@ def pvalues(string, pipeline):
             except ValueError:
                 pass
     
-        name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "_FINAL_PVALUES")
+        name = str(filenames[file].split("_")[1]+ "_" + filenames[file].split("_")[0] + "_FINAL_PVALUES.tsv")
         final_df.to_csv(name, sep = "\t")
         print(name + " download complete")
         print("Files left to be analysed: " + str(len(filenames) - file - 1))
@@ -56,8 +56,11 @@ def main():
     
     ## I have broken down the process to be easier on the computer processor
 
+## Rerun bc forgot to include filetype in command, have to rerun
 ## somatic sniper pipelines
  #   pvalues("Smoke", "somaticsniper")
+ 
+ ####### run the rest 
  #   pvalues("Race", "somaticsniper")
  #   pvalues("Gender", "somaticsniper")
     
@@ -77,8 +80,10 @@ def main():
     #pvalues("Smoke", "varscan2")
   #  pvalues("Race", "varscan2")
   
+  
+  
   ## Just need to run this command
-  #  pvalues("Gender", "varscan2")
+   # pvalues("Gender", "varscan2")
     
 
 main()
