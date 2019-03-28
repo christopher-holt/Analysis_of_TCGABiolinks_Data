@@ -71,7 +71,7 @@ for (i in 1:length(Data_Names)){
     
     age <- rbind(age_1, age_2)
     
-    age_data <- age %>% split(.$status) %>% map(~lm(new_age~n, data = .))
+    age_data <- age %>% split(.$status) %>% map(~lm(n~new_age, data = .))
     
     r_squared <- age_data %>% map(summary) %>% map_dbl("r.squared")
     
@@ -80,7 +80,8 @@ for (i in 1:length(Data_Names)){
       r_squared[1], r_squared[2], "rsquared values comparing age vs mutational burden"
     )
     
-    age_graph <- ggplot(age) + geom_point(aes(new_age, n)) + geom_smooth(method = 'lm', aes(new_age, n), se = F) +
+    age_graph <- ggplot(age) + geom_point(aes(new_age, n))+
+      geom_smooth(method = 'lm', aes(new_age, n), se = F) +
       facet_wrap(~status)
     
     write_delim(dat, file.path("Output/Smoke/Age/files/", paste0(pipelines[j], "/", Data_Names[i], "_rsquared.tsv")),
