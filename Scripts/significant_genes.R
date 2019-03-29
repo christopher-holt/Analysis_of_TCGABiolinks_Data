@@ -24,7 +24,7 @@ library(tidyverse)
 ##-----------------------------------------------------------------------------------------------------------
 
 count_sig_genes <- function(compare, cancers){
-  Main_Data <- tribble(~Pipeline, ~num_sig_genes, ~Cancer)
+  Main_Data <- tribble(~Pipeline, ~num_sig_genes, ~total_num_genes, ~Cancer)
   for (i in 1:length(cancers)){
     setwd(paste0("~/Research/BiolinksAnalysis/Output/", compare, "/Genes_Pvalues/"))
     df <- read_delim(paste0(cancers[i], "_pValues_Combined.tsv"), delim = "\t")
@@ -33,12 +33,12 @@ count_sig_genes <- function(compare, cancers){
     sig_genes <- df %>% filter(pvalue < 0.05)
     write_delim(sig_genes, file.path(paste0("~/Research/BiolinksAnalysis/Output/", compare, "/Genes_Pvalues/Summary/", 
                                             cancers[i], "_sig_genes.tsv")), delim = "\t")
-    Data <- tribble(~Pipeline, ~num_sig_genes, ~Cancer)
+    Data <- tribble(~Pipeline, ~num_sig_genes, ~total_num_genes, ~Cancer)
     for (j in 1:length(pipelines)){
       tot_genes <- df %>% filter(pipeline == pipelines[j]) %>% nrow()
       df1 <- df %>% filter(pipeline == pipelines[j], pvalue < 0.05)
-      temp <- tribble(~Pipeline, ~num_sig_genes, ~Cancer,
-                      paste0(pipelines[j]), paste0(nrow(df1), "/", tot_genes), cancers[i])
+      temp <- tribble(~Pipeline, ~num_sig_genes, ~total_num_genes ~Cancer,
+                      paste0(pipelines[j]), nrow(df1), tot_genes, cancers[i])
       
       Data <- rbind(Data, temp)
     }
