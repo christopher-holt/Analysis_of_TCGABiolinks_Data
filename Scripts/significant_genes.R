@@ -37,7 +37,7 @@ count_sig_genes <- function(compare, cancers){
     for (j in 1:length(pipelines)){
       tot_genes <- df %>% filter(pipeline == pipelines[j]) %>% nrow()
       df1 <- df %>% filter(pipeline == pipelines[j], pvalue < 0.05)
-      temp <- tribble(~Pipeline, ~num_sig_genes, ~total_num_genes ~Cancer,
+      temp <- tribble(~Pipeline, ~num_sig_genes, ~total_num_genes, ~Cancer,
                       paste0(pipelines[j]), nrow(df1), tot_genes, cancers[i])
       
       Data <- rbind(Data, temp)
