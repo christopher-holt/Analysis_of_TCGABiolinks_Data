@@ -1,5 +1,5 @@
 ## Author: Chris Holt
-## Purpose: Looks at mutational burden and age between Smokers and Non-smokers
+## Purpose: Combines the pValues of gene frequencies of different mutational pipelines into one file
 ## Date Created: 28/Mar/2019
 ## Date of Last Update: 28/Mar/2019
 
