@@ -1,41 +1,41 @@
-Pipeline	num_sig_genes	Cancer
-muse	3731/14516	BLCA
-mutect	4543/14458	BLCA
-somaticsniper	2864/13982	BLCA
-varscan2	3760/14361	BLCA
-muse	5781/27094	HNSC
-mutect	7086/27257	HNSC
-somaticsniper	4294/26028	HNSC
-varscan2	5945/27026	HNSC
-muse	5782/28556	KICH
-mutect	7087/29174	KICH
-somaticsniper	4296/27398	KICH
-varscan2	5947/28690	KICH
-muse	83/7401	KIRC
-mutect	153/8430	KIRC
-somaticsniper	36/6322	KIRC
-varscan2	97/7718	KIRC
-muse	10971/70784	KIRP
-mutect	12986/72412	KIRP
-somaticsniper	8250/63902	KIRP
-varscan2	11211/70363	KIRP
-muse	246/8675	LIHC
-mutect	319/9294	LIHC
-somaticsniper	185/8169	LIHC
-varscan2	295/9018	LIHC
-muse	7454/39650	LUAD
-mutect	9057/40297	LUAD
-somaticsniper	5437/37835	LUAD
-varscan2	7641/39735	LUAD
-muse	10903/53101	LUSC
-mutect	12864/53850	LUSC
-somaticsniper	8207/50762	LUSC
-varscan2	11137/53113	LUSC
-muse	10921/63747	PAAD
-mutect	12901/64775	PAAD
-somaticsniper	8211/57167	PAAD
-varscan2	11145/62856	PAAD
-muse	3438/14314	STAD
-mutect	5040/15031	STAD
-somaticsniper	2299/13493	STAD
-varscan2	4189/14698	STAD
+Pipeline	num_sig_genes	total_num_genes	Cancer
+muse	3731	14516	BLCA
+mutect	4543	14458	BLCA
+somaticsniper	2864	13982	BLCA
+varscan2	3760	14361	BLCA
+muse	5781	27094	HNSC
+mutect	7086	27257	HNSC
+somaticsniper	4294	26028	HNSC
+varscan2	5945	27026	HNSC
+muse	5782	28556	KICH
+mutect	7087	29174	KICH
+somaticsniper	4296	27398	KICH
+varscan2	5947	28690	KICH
+muse	83	7401	KIRC
+mutect	153	8430	KIRC
+somaticsniper	36	6322	KIRC
+varscan2	97	7718	KIRC
+muse	10971	70784	KIRP
+mutect	12986	72412	KIRP
+somaticsniper	8250	63902	KIRP
+varscan2	11211	70363	KIRP
+muse	246	8675	LIHC
+mutect	319	9294	LIHC
+somaticsniper	185	8169	LIHC
+varscan2	295	9018	LIHC
+muse	7454	39650	LUAD
+mutect	9057	40297	LUAD
+somaticsniper	5437	37835	LUAD
+varscan2	7641	39735	LUAD
+muse	10903	53101	LUSC
+mutect	12864	53850	LUSC
+somaticsniper	8207	50762	LUSC
+varscan2	11137	53113	LUSC
+muse	10921	63747	PAAD
+mutect	12901	64775	PAAD
+somaticsniper	8211	57167	PAAD
+varscan2	11145	62856	PAAD
+muse	3438	14314	STAD
+mutect	5040	15031	STAD
+somaticsniper	2299	13493	STAD
+varscan2	4189	14698	STAD
