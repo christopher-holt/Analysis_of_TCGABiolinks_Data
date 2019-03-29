@@ -13,7 +13,7 @@ Output/Smoke/*
 Output/Smoke/Age/Graphs
 
 
-!Output/Smoke/Genes_Pvalues/
+Output/Smoke/Genes_Pvalues/*_FINAL_PVALUES.tsv
 !Output/Smoke/Genes_Pvalues/Summary/
 
 !Output/Race/
@@ -23,7 +23,7 @@ Output/Race/*
 Output/Race/Age/Graphs
 
 
-!Output/Race/Genes_Pvalues/
+Output/Race/Genes_Pvalues/*_FINAL_PVALUES.tsv
 !Output/Race/Genes_Pvalues/Summary/
 
 
@@ -36,7 +36,7 @@ Output/Gender/*
 !Output/Gender/Age/
 Output/Gender/Age/Graphs
 
-!Output/Gender/Genes_Pvalues/
+Output/Gender/Genes_Pvalues/*_FINAL_PVALUES.tsv
 !Output/Gender/Genes_Pvalues/Summary/
 
 
