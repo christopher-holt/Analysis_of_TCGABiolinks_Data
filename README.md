@@ -2,208 +2,13 @@
 These scripts will download, manipulate, and analyse TCGA data obtained through the R package TCGAbiolinks
 
 ## Table of Contents
-* [Directory Structure](#directory_structure)
 * [Languages](#languages)
 * [Packages](#packages)  
 * [Scripts](#Scripts)
 * [Datasets](#Datasets)
 * [Output](#Output)
 
-<div id='directory_structure'/>  
 
-## Directory Structure
-#### Datasets/GDCdata/* has been ignored for space reasons
-```console
-BiolinksAnalysis
-├── BiolinksAnalysis.Rproj
-├── Datasets
-│   ├── BLCA.csv
-│   ├── BLCA_select.csv
-│   ├── ESCA.csv
-│   ├── ESCA_select.csv
-│   ├── HNSC.csv
-│   ├── HNSC_select.csv
-│   ├── KICH.csv
-│   ├── KICH_select.csv
-│   ├── KIRC.csv
-│   ├── KIRC_select.csv
-│   ├── KIRP.csv
-│   ├── KIRP_select.csv
-│   ├── LAML.csv
-│   ├── LAML_select.csv
-│   ├── LIHC.csv
-│   ├── LIHC_select.csv
-│   ├── LUAD.csv
-│   ├── LUAD_select.csv
-│   ├── LUSC.csv
-│   ├── LUSC_select.csv
-│   ├── PAAD.csv
-│   ├── PAAD_select.csv
-│   ├── STAD.csv
-│   └── STAD_select.csv
-├── Output
-│   ├── Gender
-│   │   ├── Age
-│   │   │   ├── files
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   └── Graphs
-│   │   │       ├── muse
-│   │   │       ├── mutect
-│   │   │       ├── somaticsniper
-│   │   │       └── varscan2
-│   │   ├── Genes_Pvalues
-│   │   ├── Graphs
-│   │   │   ├── nucChange_Graph
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   ├── TiTv_Graph
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   └── total_mut_Graph
-│   │   │       ├── muse
-│   │   │       ├── mutect
-│   │   │       ├── somaticsniper
-│   │   │       └── varscan2
-│   │   └── pValues
-│   │       ├── nucChange_pVal
-│   │       │   ├── muse
-│   │       │   ├── mutect
-│   │       │   ├── somaticsniper
-│   │       │   └── varscan2
-│   │       ├── TiTv_pVal
-│   │       │   ├── muse
-│   │       │   ├── mutect
-│   │       │   ├── somaticsniper
-│   │       │   └── varscan2
-│   │       └── total_mut_pval
-│   │           ├── muse
-│   │           ├── mutect
-│   │           ├── somaticsniper
-│   │           └── varscan2
-│   ├── Race
-│   │   ├── Age
-│   │   │   ├── files
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   └── Graphs
-│   │   │       ├── muse
-│   │   │       ├── mutect
-│   │   │       ├── somaticsniper
-│   │   │       └── varscan2
-│   │   ├── Genes_Pvalues
-│   │   ├── Graphs
-│   │   │   ├── nucChange_Graph
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   ├── TiTv_Graph
-│   │   │   │   ├── muse
-│   │   │   │   ├── mutect
-│   │   │   │   ├── somaticsniper
-│   │   │   │   └── varscan2
-│   │   │   └── total_mut_Graph
-│   │   │       ├── muse
-│   │   │       ├── mutect
-│   │   │       ├── somaticsniper
-│   │   │       └── varscan2
-│   │   └── pValues
-│   │       ├── nucChange_pVal
-│   │       │   ├── muse
-│   │       │   ├── mutect
-│   │       │   ├── somaticsniper
-│   │       │   └── varscan2
-│   │       ├── TiTv_pVal
-│   │       │   ├── muse
-│   │       │   ├── mutect
-│   │       │   ├── somaticsniper
-│   │       │   └── varscan2
-│   │       └── total_mut_pval
-│   │           ├── muse
-│   │           ├── mutect
-│   │           ├── somaticsniper
-│   │           └── varscan2
-│   └── Smoke
-│       ├── Age
-│       │   ├── files
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   └── Graphs
-│       │       ├── muse
-│       │       ├── mutect
-│       │       ├── somaticsniper
-│       │       └── varscan2
-│       ├── Genes_Pvalues
-│       ├── Graphs
-│       │   ├── nucChange_Graph
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   ├── TiTv_Graph
-│       │   │   ├── muse
-│       │   │   ├── mutect
-│       │   │   ├── somaticsniper
-│       │   │   └── varscan2
-│       │   └── total_mut_Graph
-│       │       ├── muse
-│       │       ├── mutect
-│       │       ├── somaticsniper
-│       │       └── varscan2
-│       └── pValues
-│           ├── nucChange_pVal
-│           │   ├── muse
-│           │   ├── mutect
-│           │   ├── somaticsniper
-│           │   └── varscan2
-│           ├── TiTv_pVal
-│           │   ├── muse
-│           │   ├── mutect
-│           │   ├── somaticsniper
-│           │   └── varscan2
-│           └── total_mut_pval
-│               ├── muse
-│               ├── mutect
-│               ├── somaticsniper
-│               └── varscan2
-├── README.md
-└── Scripts
-    ├── Analysis1_1.R
-    ├── Analysis1_2.R
-    ├── Analysis1_3.R
-    ├── Analysis1_4.R
-    ├── Analysis1.R
-    ├── Analysis2_1.R
-    ├── Analysis2_2.R
-    ├── Analysis2_4.R
-    ├── Analysis2.R
-    ├── Analysis3_1.R
-    ├── Analysis3_2.R
-    ├── Analysis3_4.R
-    ├── Analysis3.R
-    ├── Download.R
-    ├── functions1.R
-    ├── functions2.R
-    ├── functions3.R
-    ├── functions.R
-    ├── select_col.py
-    └── MannU_Test.py
-
-
-
-
-```
 
 <div id='languages'/>  
 
@@ -252,7 +57,11 @@ directory
 
 select_col.py - This a python script that will take the tab-delimated flat files created by Download.R and will extract important columns to make smaller, more efficient files (~/BiolinksAnalysis/Datasets/\*\_select.csv)  
 
-MannU_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R. For processing reasons, you must specify the individual comparison directory (Smoke/Race/Gender) and then a valid cancer cohort within that directory (more info in file)
+MannU_Test.py - This python file will calculate the pValues for all flat files written out by Analysis*_2.R. For processing reasons, you must specify the individual comparison directory (Smoke/Race/Gender) and then a valid cancer cohort within that directory (more info in file)  
+
+combine_pValues.R - This file will take the output of MannU_Test.py and combine them into one flat file per cancer to make later analysis easier  
+
+significant_genes.R - This will file will read in the outputs of combine_pValues.R and create two flat files. One has all the genes for each pipeline with a pvalue less than 0.05 and the other is a summary of the number of significant genes for each pipeline and cancer
 
 ##### Smoking Data
 functions1.R - Script that creates functions used in Analysis1.R  
@@ -297,20 +106,21 @@ Analysis3_4.R - This script will calculate the number of mutations for each age 
 <div id='Output'/>  
 
 ## Output
-#### This folder will contain all info generated as a result of Analysis\*.R files such as pValues and graphs
+#### This folder will contain all info generated as a result of R/py files such as pValues and graphs and frequency tables 
 
 #### The data was calculated for each group, for each cancer, for each valid site in each cancer, and for each somatic varaint pipeline (muse, mutect, somaticsniper, varscan2)  
-nucChange_Graphs contains boxplots showing the different nucleotide changes (eg A > G) and their frequency distrubution per person in the population  
-nucChange_pVal shows the pValue, calculated by wilcox.text, between each respective population for each nucleotide change
+Graphs/nucChange_Graphs contains boxplots showing the different nucleotide changes (eg A > G) and their frequency distrubution per person in the population  
+pValues/nucChange_pVal shows the pValue, calculated by wilcox.text, between each respective population for each nucleotide change
 
-TiTv_Graphs shows the frequency distribution of Transitions and Transversions per person between two populations  
-TiTv_pVal shows the pValue between each population for Transitions and Transversions
+Graphs/TiTv_Graphs shows the frequency distribution of Transitions and Transversions per person between two populations  
+pValues/TiTv_pVal shows the pValue between each population for Transitions and Transversions
 
-total_mut_Graphs shows the distribution of the total number of somatic point mutations per person in each population  
-total_mut_pVal shows the pValue between each group for the distribution of somatic point mutations  
+Graphs/total_mut_Graphs shows the distribution of the total number of somatic point mutations per person in each population  
+pValues/total_mut_pVal shows the pValue between each group for the distribution of somatic point mutations  
 
 Age contains graphs showing the relation between number of mutations and age.   
 Age/Files contains flat files with the rsquared values of the linear regression line  
 Age/Graphs contains the .jpg files of the graphs
 
-Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (*_FINAL_PVALUES)
+Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (*_FINAL_PVALUES) and the combined files of FINAL_PVALUES (*_pValues_Combined)  
+Genes_Pvalues/Summary contains flat files with all the genes that have pValues less than 0.05 and a combined summary table showing the number of significant genes for each pipeline  
