@@ -122,5 +122,5 @@ Age contains graphs showing the relation between number of mutations and age.
 Age/Files contains flat files with the rsquared values of the linear regression line  
 Age/Graphs contains the .jpg files of the graphs
 
-Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (*_FINAL_PVALUES) and the combined files of FINAL_PVALUES (*_pValues_Combined)  
+Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (\*_FINAL_PVALUES) and the combined files of FINAL_PVALUES (\*_pValues_Combined)  
 Genes_Pvalues/Summary contains flat files with all the genes that have pValues less than 0.05 and a combined summary table showing the number of significant genes for each pipeline  
