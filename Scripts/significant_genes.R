@@ -35,9 +35,10 @@ count_sig_genes <- function(compare, cancers){
                                             cancers[i], "_sig_genes.tsv")), delim = "\t")
     Data <- tribble(~Pipeline, ~num_sig_genes, ~Cancer)
     for (j in 1:length(pipelines)){
+      tot_genes <- df %>% filter(pipeline == pipelines[j]) %>% nrow()
       df1 <- df %>% filter(pipeline == pipelines[j], pvalue < 0.05)
       temp <- tribble(~Pipeline, ~num_sig_genes, ~Cancer,
-                      paste0(pipelines[j]), nrow(df1), cancers[i])
+                      paste0(pipelines[j]), paste0(nrow(df1), "/", tot_genes), cancers[i])
       
       Data <- rbind(Data, temp)
     }
@@ -63,12 +64,6 @@ count_sig_genes("Gender", Data_Names_1)
 
 
   
-
-
-
-
-
-
 
 
 
