@@ -13,8 +13,8 @@ Output/Smoke/*
 Output/Smoke/Age/Graphs
 
 
-!Output/Smoke/Genes_Pvalues/*Combined.tsv
-
+!Output/Smoke/Genes_Pvalues/
+Output/Smoke/Genes/Genes_Pvalues/*Combined.tsv
 
 !Output/Race/
 Output/Race/*
