@@ -63,7 +63,7 @@ main <- function(Data_Names, category){
     abbr <- unique(df$abbr)
     for(j in 1:length(pipelines)){
           ## Subset the data into smokers and non-smokers. These will be in a loop that separates cancer, pipeline, and location
-          ## Set_1 are smokers, Set_2 are non-smokers
+          ## Set_1 are smokers/male/EurAmr, Set_2 are non-smokers/female/AfrAmr
           Set_1 <- df %>% filter(status == cats[1], pipeline == pipelines[j])
           Set_2 <- df %>% filter(status == cats[2] , pipeline == pipelines[j])
           
