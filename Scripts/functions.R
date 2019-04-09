@@ -104,46 +104,37 @@ classify_Changes <- function(Data){
 ##-----------------------------------------------------------------------------------------------------------
 
 sites <- function(Data, category){
-  pot_sites <- as.character(unique(Data$tissue_or_organ_of_origin))
+  pot_sites <- unique(Data$tissue_or_organ_of_origin)
   new_site <- character()
-  category <- as.name(paste0(category))
-  if ("white" %in% Data[[category]]){
-    try <- Data%>% filter(race %in% c("white", "black or african american"))
-    pot_sites <- as.character(unique(try$tissue_or_organ_of_origin))
-    cats <- as.character(unique(try[[category]]))
-    for (i in 1:length(pot_sites)){
-      set1 <- try %>% filter(mutation_status == "Somatic",
-                             variant_classification %in% c("Missense_Mutation", 
-                                                           "Nonsense_Mutations", "Silent",
-                                                           "Frame_Shift_Del",
-                                                           "Frame_Shift_Ins", "In_Frame_Del", 
-                                                           "In_Frame_Ins", "Indel"), 
-                             tissue_or_organ_of_origin == pot_sites[i])
+  for(i in 1:length(pot_sites)){
+    df <- Data  %>% filter(mutation_status == "Somatic",
+                           variant_classification %in% c("Missense_Mutation", 
+                                                         "Nonsense_Mutations", "Silent",
+                                                         "Frame_Shift_Del",
+                                                         "Frame_Shift_Ins", "In_Frame_Del", 
+                                                         "In_Frame_Ins", "Indel"), 
+                           tissue_or_organ_of_origin == pot_sites[i])
+    if(category == "Smoke"){
+      df_1 <- df %>% filter(is.na(cigarettes_per_day))
+      df_2 <- df %>% filter(!(is.na(cigarettes_per_day)))
       
-      set1_a <- set1 %>% filter(race == cats[1])
-      set1_b <- set1 %>% filter(race == cats[2])
-      
-      if((nrow(set1_b) > 0 & nrow(set1_a) > 0) & ((length(unique(set1_b$tumor_barcode)) >= 3 & length(unique(set1_a$tumor_barcode)) >= 3))){
+      if((nrow(df_1) > 0 & nrow(df_2) > 0) & ((length(unique(df_1$tumor_barcode)) >= 3 & length(unique(df_2$tumor_barcode)) >= 3))){
         new_site <- c(new_site, pot_sites[i])
-      } 
-    }
-  } else {
-    cats <- as.character(unique(Data[[category]]))
-    for (i in 1:length(pot_sites)){
-      set1 <- try %>% filter(mutation_status == "Somatic",
-                             variant_classification %in% c("Missense_Mutation", 
-                                                           "Nonsense_Mutations", "Silent",
-                                                           "Frame_Shift_Del",
-                                                           "Frame_Shift_Ins", "In_Frame_Del", 
-                                                           "In_Frame_Ins", "Indel"), 
-                             tissue_or_organ_of_origin == pot_sites[i])
+      }
+    } else if(category == "Race"){
+      df_1 <- df %>% filter(race == "black or african american")
+      df_2 <- df %>% filter(race == "white")
       
-      set1_a <- set1 %>% filter(gender == cats[1])
-      set1_b <- set1 %>% filter(gender == cats[2])
-      
-      if((nrow(set1_b) > 0 & nrow(set1_a) > 0) & ((length(unique(set1_b$tumor_barcode)) >= 3 & length(unique(set1_a$tumor_barcode)) >= 3))){
+      if((nrow(df_1) > 0 & nrow(df_2) > 0) & ((length(unique(df_1$tumor_barcode)) >= 3 & length(unique(df_2$tumor_barcode)) >= 3))){
         new_site <- c(new_site, pot_sites[i])
-      } 
+      }
+    } else{
+      df_1 <- df %>% filter(gender == "male")
+      df_2 <- df %>% filter(gender == "female")
+      
+      if((nrow(df_1) > 0 & nrow(df_2) > 0) & ((length(unique(df_1$tumor_barcode)) >= 3 & length(unique(df_2$tumor_barcode)) >= 3))){
+        new_site <- c(new_site, pot_sites[i])
+      }
     }
   }
   return(new_site)
