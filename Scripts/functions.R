@@ -179,8 +179,8 @@ diff_genes <- function(df, df2){
 ##-----------------------------------------------------------------------------------------------------------
 
 nucChange_Sum <- function(df, status, Initial){
-  df_1 <- df %>% filter(!(nucChange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
-  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$nucChange)) %>% mutate_if(is.factor,as.character)
+  df_1 <- df %>% filter(!(nucchange %in% c("deletion", "insertion", "other")) )  %>% mutate_if(is.factor,as.character)
+  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$nucchange)) %>% mutate_if(is.factor,as.character)
   df_1_table$status <- paste0(length(unique(df_1_table$Var1)), status)
   df_1_table$abbr <- paste0(Initial)
   return(df_1_table)
@@ -190,8 +190,8 @@ nucChange_Sum <- function(df, status, Initial){
 ## This function will take a dataset, count the number of TiTv per person
 ##-----------------------------------------------------------------------------------------------------------
 TiTv_count <- function(df, status, Initial){
-  df_1 <- df %>% filter(Mut_Type %in% c("Ti", "Tv")) %>% mutate_if(is.factor,as.character)
-  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$Mut_Type)) %>% mutate_if(is.factor,as.character)
+  df_1 <- df %>% filter(mut_type %in% c("Ti", "Tv")) %>% mutate_if(is.factor,as.character)
+  df_1_table <- as.data.frame(table(df_1$tumor_barcode,df_1$mut_type)) %>% mutate_if(is.factor,as.character)
   
   df_sum <- df_1_table %>% group_by(Var1) %>% mutate(pc = Freq/sum(Freq)*100)
   
