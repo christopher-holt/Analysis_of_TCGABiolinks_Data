@@ -2,7 +2,7 @@
 ## Purpose: Compares nucleotide change frequencies, total amount of somatic point mutations, 
 ## and Transition vs Transversion Frequencies between non-smokers and smokers
 ## Date Created: Feb/2019
-## Date of Last Update: 8/Apr/2019
+## Date of Last Update: 9/Apr/2019
 
 ##-----------------------------------------------------------------------------------------------------------
 ## This file will compare smoker vs nonsmoker data from 10 cancer datasets
@@ -199,10 +199,15 @@ main <- function(Data_Names, category){
 
 Data_Names <- c("BLCA", "HNSC", "KICH", "LUAD", "LUSC", "PAAD", "KIRP")
 
+## Gender/Race analysis only
+extra_data_names <- c("KIRC", "PAAD", "LIHC")
+
 main(Data_Names, "Smoke")
 main(Data_Names, "Gender")
 main(Data_Names, "Race")
 
+main(extra_data_names, "Gender")
+main(extra_data_names, "Race")
 
 
 
