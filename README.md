@@ -63,8 +63,6 @@ combine_pValues.R - This file will take the output of MannU_Test.py and combine 
 
 significant_genes.R - This will file will read in the outputs of combine_pValues.R and create two flat files. One has all the genes for each pipeline with a pvalue less than 0.05 and the other is a summary of the number of significant genes for each pipeline and cancer
 
-##### Smoking Data
-
 Analysis1.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline only comparing smokers and nonsmokers  
 
 Analysis1_1.R - This will perform the same action as Analysis1.R except that it will look at the whole cancer, not specific sites
@@ -75,11 +73,12 @@ Analysis1_3.R - This script will perform the same analysis as Analysis1_1.R exce
 
 Analysis1_4.R - This script will calculate the number of mutations for each age and look for a relation
 
+
+
+<!-- I am currently altering the scripts to remove redundant files and processes -->  
 ##### Race Data
 
 Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr  
-
-Analysis2_1.R - This will perform the same action as Analysis2.R except that it will look at the whole cancer, not specific sites\
 
 Analysis2_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
 
@@ -88,8 +87,6 @@ Analysis2_4.R - This script will calculate the number of mutations for each age 
 ##### Gender Data
 
 Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female  
-
-Analysis3_1.R - This will perform the same action as Analysis3.R except that it will look at the whole cancer, not specific sites
 
 Analysis3_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
 
