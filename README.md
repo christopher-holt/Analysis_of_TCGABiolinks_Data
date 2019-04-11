@@ -75,23 +75,6 @@ Analysis1_4.R - This script will calculate the number of mutations for each age 
 
 
 
-<!-- I am currently altering the scripts to remove redundant files and processes -->  
-##### Race Data
-
-Analysis2.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing AfrAmr and EurAmr  
-
-Analysis2_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
-
-Analysis2_4.R - This script will calculate the number of mutations for each age and look for a relation
-
-##### Gender Data
-
-Analysis3.R - Read in the csv data from Download.R and generate pValues/Quartile data for each Cancer, location, and mutational pipeline  comparing Male and Female  
-
-Analysis3_2.R - This script will calculate the frequencies of Genes in each population and write out a tab delim file
-
-Analysis3_4.R - This script will calculate the number of mutations for each age and look for a relation
-
 <div id='Datasets'/>  
 
 ## Datasets
