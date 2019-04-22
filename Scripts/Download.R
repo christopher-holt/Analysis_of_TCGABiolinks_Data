@@ -23,6 +23,15 @@ columnsofInterest <- c("tumor_barcode", "primary_diagnosis", "tumor_stage", "gen
 ## and occurence
 ##-----------------------------------------------------------------------------------------------------------
 
+total_Cancers <- getGDCprojects()$project_id %>%
+  enframe() %>% select(value) %>% rename("cancer" = "value") %>% 
+  filter(grepl("^TCGA.*$", cancer))
+
+total_Cancers$cancer <- total_Cancers$cancer %>% str_remove("TCGA-") %>% sort()
+total_Cancers <- total_Cancers %>% pull()
+
+## A select number of cancers
+
 Cancers <- c("LAML", "BLCA")
 Cancers1 <- c("ESCA","KICH")
 Cancers2 <- c("KIRC","KIRP")
