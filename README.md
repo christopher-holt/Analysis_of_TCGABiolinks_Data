@@ -75,6 +75,8 @@ Analysis1_4.R - This script will calculate the number of mutations for each age 
 
 Analysis1_5.R - This script looks at which genes are signifcantly different across cancers and identify any common genes
 
+Analysis1_6.R - This script will look at variant_classifications and identify which ones are significant
+
 
 <div id='Datasets'/>  
 
@@ -101,4 +103,13 @@ Age/Files contains flat files with the rsquared values of the linear regression 
 Age/Graphs contains the .jpg files of the graphs
 
 Genes_Pvalues contains gene frequencies flat files and the files containg pvalues (\*_FINAL_PVALUES) and the combined files of FINAL_PVALUES (\*_pValues_Combined)  
-Genes_Pvalues/Summary contains flat files with all the genes that have pValues less than 0.05 and a combined summary table showing the number of significant genes for each pipeline  
+Genes_Pvalues/Summary contains flat files with all the genes that have pValues less than 0.05 and a combined summary table showing the number of significant genes for each pipeline 
+
+Graphs/var_class_Graph contains the jpgs showing the proportion of each variant classification for each the three groups and which ones are significant
+pValues/var_class_pval contains the flat files containing the pValue for each variant classification that were calculated by Analysis1_6.R
+
+
+
+
+
+ 
