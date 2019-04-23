@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.7138870517119063	HNSC	varscan2	0	1
+5'UTR	0.08963468913766942	HNSC	varscan2	0	1
+Missense_Mutation	0.2250556291790711	HNSC	varscan2	0	1
+Nonsense_Mutation	0.10443223992539447	HNSC	varscan2	0	1
+Silent	0.11282666449064513	HNSC	varscan2	0	1

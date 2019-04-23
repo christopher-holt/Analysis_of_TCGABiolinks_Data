@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.15762686941833398	KICH	mutect	0	1
+Missense_Mutation	0.699753478195667	KICH	mutect	0	1
+Silent	0.05260127984594159	KICH	mutect	0	1
+Nonsense_Mutation	0.9238502734293712	KICH	mutect	0	1
+5'UTR	0.47497217018336185	KICH	mutect	0	1

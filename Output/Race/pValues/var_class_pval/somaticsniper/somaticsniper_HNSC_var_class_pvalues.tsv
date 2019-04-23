@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+Missense_Mutation	0.2096693488588028	HNSC	somaticsniper	0	1
+Nonsense_Mutation	0.6767452274943074	HNSC	somaticsniper	0	1
+Silent	0.3094451532451712	HNSC	somaticsniper	0	1
+3'UTR	0.46889712754782353	HNSC	somaticsniper	0	1
+5'UTR	0.7292154101547219	HNSC	somaticsniper	0	1

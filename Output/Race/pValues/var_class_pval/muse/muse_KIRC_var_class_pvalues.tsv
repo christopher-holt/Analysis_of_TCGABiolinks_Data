@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.0025590424202708057	KIRC	muse	1	1
+5'UTR	0.02412991297689637	KIRC	muse	1	1
+Missense_Mutation	0.41761729607943493	KIRC	muse	0	1
+Nonsense_Mutation	0.15417678216264852	KIRC	muse	0	1
+Silent	0.35165862300902184	KIRC	muse	0	1

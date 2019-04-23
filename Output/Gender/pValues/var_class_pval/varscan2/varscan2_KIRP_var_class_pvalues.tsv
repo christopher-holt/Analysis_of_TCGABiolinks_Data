@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.3138552956675297	KIRP	varscan2	0	1
+5'UTR	0.005921434862775611	KIRP	varscan2	1	1
+Missense_Mutation	2.516679656547654e-4	KIRP	varscan2	1	1
+Nonsense_Mutation	0.170150689620188	KIRP	varscan2	0	1
+Silent	9.202666912325759e-4	KIRP	varscan2	1	1

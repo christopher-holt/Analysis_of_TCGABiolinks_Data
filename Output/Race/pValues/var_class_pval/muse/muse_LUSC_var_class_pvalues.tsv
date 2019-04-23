@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.7470973873608846	LUSC	muse	0	1
+5'UTR	0.27647649666591645	LUSC	muse	0	1
+Missense_Mutation	0.8905710133943026	LUSC	muse	0	1
+Nonsense_Mutation	0.8484525491140519	LUSC	muse	0	1
+Silent	0.5361939475853701	LUSC	muse	0	1

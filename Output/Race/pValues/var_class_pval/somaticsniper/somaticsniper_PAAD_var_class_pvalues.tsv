@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+Missense_Mutation	0.23078726237053024	PAAD	somaticsniper	0	1
+Nonsense_Mutation	0.5490557929841609	PAAD	somaticsniper	0	1
+Silent	0.9180125234366955	PAAD	somaticsniper	0	1
+3'UTR	0.452755090748475	PAAD	somaticsniper	0	1
+5'UTR	0.5913195290659061	PAAD	somaticsniper	0	1

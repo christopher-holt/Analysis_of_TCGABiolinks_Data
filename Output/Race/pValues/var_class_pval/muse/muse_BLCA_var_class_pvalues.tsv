@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.5286979678451077	BLCA	muse	0	1
+5'UTR	0.18422339334686513	BLCA	muse	0	1
+Missense_Mutation	0.2932856421089584	BLCA	muse	0	1
+Nonsense_Mutation	0.25896434762793497	BLCA	muse	0	1
+Silent	0.23081435070791495	BLCA	muse	0	1

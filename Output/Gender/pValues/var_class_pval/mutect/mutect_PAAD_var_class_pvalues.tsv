@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.7588565242974991	PAAD	mutect	0	1
+Missense_Mutation	0.04633988938416702	PAAD	mutect	1	1
+Nonsense_Mutation	0.11637601007715305	PAAD	mutect	0	1
+Silent	0.001090604533987721	PAAD	mutect	1	1
+5'UTR	0.6076913155311048	PAAD	mutect	0	1

@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+Missense_Mutation	0.046440035818225846	KICH	varscan2	1	1
+Silent	0.7287526304280391	KICH	varscan2	0	1
+3'UTR	0.8497294911836513	KICH	varscan2	0	1
+5'UTR	0.8365756828157238	KICH	varscan2	0	1
+Nonsense_Mutation	0.061563410444148876	KICH	varscan2	0	1

@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+Missense_Mutation	0.04015960686283024	KICH	somaticsniper	1	1
+Silent	0.5824997297342218	KICH	somaticsniper	0	1
+3'UTR	0.2982899501168457	KICH	somaticsniper	0	1
+Nonsense_Mutation	0.06325652187827878	KICH	somaticsniper	0	1
+5'UTR	0.4664335416989021	KICH	somaticsniper	0	1

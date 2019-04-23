@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.4630429815321788	BLCA	somaticsniper	0	1
+5'UTR	0.26510276330110993	BLCA	somaticsniper	0	1
+Missense_Mutation	0.4383075909143841	BLCA	somaticsniper	0	1
+Nonsense_Mutation	0.31251968241462547	BLCA	somaticsniper	0	1
+Silent	0.37171146829703083	BLCA	somaticsniper	0	1

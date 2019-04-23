@@ -1,0 +1,6 @@
+variant_classification	pValue	Cancer	Pipeline	sig	loc
+3'UTR	0.203180894063567	PAAD	varscan2	0	1
+5'UTR	0.6799399299259775	PAAD	varscan2	0	1
+Missense_Mutation	0.9212333772181673	PAAD	varscan2	0	1
+Nonsense_Mutation	0.9061197719094287	PAAD	varscan2	0	1
+Silent	0.863764548699685	PAAD	varscan2	0	1
