@@ -89,7 +89,7 @@ main <- function(Data_Names, category){
       
       pVal_df <- pVal_df %>% mutate(sig = ifelse(pVal_df$pValue < 0.05, "1", "0"))
 
-      pVal_df$loc <- 1
+      pVal_df$loc <- 1 ## This is used to place the point on the bar graph
       
       var_graph <- ggplot(combined_set) + geom_bar(aes(x = variant_classification, y = perc, fill = status), 
                                                    stat = "identity", position = "dodge") +
