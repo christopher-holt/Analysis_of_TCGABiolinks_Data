@@ -22,13 +22,7 @@ rm(list = ls())
 
 source("~/Research/BiolinksAnalysis/Scripts/functions.R")
 source("~/Research/BiolinksAnalysis/Scripts/functions1.R")
-##-----------------------------------------------------------------------------------------------------------
-## Read in the data
-##-----------------------------------------------------------------------------------------------------------
-Data_Names <- c("BLCA", "HNSC")
-Data_Names <- c("KICH", "LUAD")
-Data_Names <- c("LUSC", "PAAD")
-Data_Names <- c("KIRP")
+
 ## LAML was removed for having no smoking data, ESCA has no valid sites for smoking data
 ## Kirc, STAD, LIHC has no smoking data
 ##-----------------------------------------------------------------------------------------------------------
