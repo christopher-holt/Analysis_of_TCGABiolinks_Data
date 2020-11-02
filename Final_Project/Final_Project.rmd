@@ -3,7 +3,7 @@ title: "Differences in  the Cancer Mutational Landscape"
 author: "Chris Holt"
 date: "3/May/2019"
 output: 
-  html_notebook:
+  github_document:
     theme: readable
     toc: TRUE
     toc_float: 
