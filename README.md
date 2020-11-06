@@ -109,6 +109,8 @@ Graphs/var_class_Graph contains the jpgs showing the proportion of each variant 
 pValues/var_class_pval contains the flat files containing the pValue for each variant classification that were calculated by Analysis1_6.R
 
 
+## Final_Project
+This direcotry puts all the scripts together into a summarised .rmd file that is rendered as a github markdown document and as a html webpage
 
 
 
